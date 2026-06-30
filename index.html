@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Complete Coffee Shop Operations Manual — Malaysia Edition</title>
+<style>
+:root {
+  --black: #000000;
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #1a1a1a;
+  --surface3: #222222;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.12);
+  --orange: #ff6b00;
+  --orange-soft: #ff8c38;
+  --orange-dim: rgba(255,107,0,0.15);
+  --orange-glow: rgba(255,107,0,0.08);
+  --text: #f5f5f7;
+  --text2: rgba(245,245,247,0.72);
+  --text3: rgba(245,245,247,0.45);
+  --green: #30d158;
+  --red: #ff453a;
+  --blue: #0a84ff;
+  --yellow: #ffd60a;
+  --green-dim: rgba(48,209,88,0.12);
+  --red-dim: rgba(255,69,58,0.12);
+  --blue-dim: rgba(10,132,255,0.12);
+  --yellow-dim: rgba(255,214,10,0.12);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:rgba(255,107,0,0.4); border-radius:2px; }
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+  position:fixed; left:0; top:0;
+  width:248px; height:100vh;
+  background: rgba(10,10,10,0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-right: 1px solid var(--border);
+  overflow-y:auto; z-index:999;
+  padding-bottom:40px;
+}
+.sidebar::-webkit-scrollbar { width:2px; }
+.sidebar::-webkit-scrollbar-thumb { background:rgba(255,107,0,0.2); }
+
+.sb-brand {
+  padding:24px 20px 16px;
+  border-bottom:1px solid var(--border);
+}
+.sb-brand h1 {
+  font-size:11px; font-weight:600;
+  color:var(--orange); text-transform:uppercase;
+  letter-spacing:1.8px;
+}
+.sb-brand p {
+  font-size:10px; color:var(--text3);
+  margin-top:3px; letter-spacing:0.3px;
+}
+
+.sb-section {
+  padding:20px 20px 6px;
+  font-size:9px; font-weight:700;
+  text-transform:uppercase; letter-spacing:2px;
+  color:var(--text3);
+}
+
+.sidebar nav a {
+  display:block; padding:8px 20px;
+  color:var(--text2); text-decoration:none;
+  font-size:12px; font-weight:400;
+  letter-spacing:-0.1px;
+  border-left:2px solid transparent;
+  transition:all 0.2s ease;
+}
+.sidebar nav a:hover {
+  color:var(--text);
+  border-left-color:var(--orange);
+  background:var(--orange-glow);
+}
+
+/* ─── MAIN ─── */
+.main { margin-left:248px; }
+
+/* ─── COVER ─── */
+.cover {
+  background: var(--black);
+  padding: 96px 72px 88px;
+  position:relative; overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+.cover::before {
+  content:'';
+  position:absolute; top:-200px; right:-100px;
+  width:600px; height:600px;
+  background: radial-gradient(circle, rgba(255,107,0,0.12) 0%, transparent 70%);
+  pointer-events:none;
+}
+.cover::after {
+  content:'';
+  position:absolute; bottom:-150px; left:50px;
+  width:400px; height:400px;
+  background: radial-gradient(circle, rgba(255,107,0,0.06) 0%, transparent 70%);
+  pointer-events:none;
+}
+.cover-tag {
+  font-size:11px; letter-spacing:2px;
+  text-transform:uppercase; color:var(--orange);
+  font-weight:600; margin-bottom:20px;
+  display:inline-flex; align-items:center; gap:8px;
+}
+.cover-tag::before {
+  content:''; width:20px; height:1px;
+  background:var(--orange); display:inline-block;
+}
+.cover h1 {
+  font-size:52px; font-weight:700;
+  line-height:1.08; letter-spacing:-1.5px;
+  color:var(--text); max-width:700px;
+}
+.cover h1 em {
+  color:var(--orange); font-style:normal;
+}
+.cover .sub {
+  font-size:17px; color:var(--text2);
+  margin-top:18px; max-width:520px;
+  font-weight:400; line-height:1.6;
+  letter-spacing:-0.2px;
+}
+.cover-stats {
+  display:flex; gap:0;
+  margin-top:56px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  max-width:560px;
+  background:var(--surface);
+}
+.cv-stat {
+  flex:1; padding:20px 24px;
+  border-right:1px solid var(--border);
+}
+.cv-stat:last-child { border-right:none; }
+.cv-stat .n {
+  font-size:34px; font-weight:700;
+  color:var(--orange); letter-spacing:-1px;
+  line-height:1;
+}
+.cv-stat .l {
+  font-size:11px; text-transform:uppercase;
+  letter-spacing:1px; color:var(--text3);
+  margin-top:5px; font-weight:500;
+}
+
+/* ─── SECTION ─── */
+.section {
+  padding:64px 72px;
+  border-bottom:1px solid var(--border);
+}
+.section:nth-child(even) { background:rgba(255,255,255,0.012); }
+
+.sec-head {
+  display:flex; align-items:flex-start; gap:20px;
+  margin-bottom:40px; padding-bottom:28px;
+  border-bottom:1px solid var(--border);
+}
+.sec-num {
+  background: var(--orange-dim);
+  color: var(--orange);
+  width:52px; height:52px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; font-weight:700; flex-shrink:0;
+  border:1px solid rgba(255,107,0,0.25);
+  letter-spacing:-0.5px;
+}
+.sec-info h2 {
+  font-size:28px; font-weight:700;
+  color:var(--text); letter-spacing:-0.8px;
+  line-height:1.1;
+}
+.sec-info p {
+  font-size:13px; color:var(--text3);
+  margin-top:4px; letter-spacing:-0.1px;
+}
+
+h3 {
+  font-size:19px; font-weight:600;
+  color:var(--text); margin:36px 0 14px;
+  letter-spacing:-0.5px; line-height:1.2;
+  display:flex; align-items:center; gap:10px;
+}
+h3::before {
+  content:''; width:3px; height:18px;
+  background:var(--orange); border-radius:2px;
+  flex-shrink:0;
+}
+h4 {
+  font-size:12px; color:var(--orange);
+  margin:20px 0 10px; font-weight:600;
+  text-transform:uppercase; letter-spacing:1.2px;
+}
+
+p { font-size:14px; margin-bottom:10px; color:var(--text2); letter-spacing:-0.1px; }
+ul, ol { margin:8px 0 14px 18px; font-size:13px; color:var(--text2); }
+li { margin-bottom:5px; }
+
+/* ─── TABLES ─── */
+.tbl-wrap { overflow-x:auto; margin:16px 0 24px; border-radius:12px; border:1px solid var(--border); }
+table { width:100%; border-collapse:collapse; font-size:12.5px; }
+th {
+  background:var(--surface2);
+  color:var(--text3); padding:10px 14px;
+  text-align:left; font-size:10.5px;
+  text-transform:uppercase; letter-spacing:1px;
+  font-weight:600; border-bottom:1px solid var(--border);
+}
+td {
+  padding:10px 14px;
+  border-bottom:1px solid var(--border);
+  vertical-align:top; color:var(--text2);
+  font-size:13px;
+}
+tr:last-child td { border-bottom:none; }
+tr:hover td { background:rgba(255,255,255,0.02); }
+.total-row td {
+  background:var(--orange-dim) !important;
+  color:var(--orange) !important; font-weight:600;
+  border-top:1px solid rgba(255,107,0,0.2);
+}
+.subtotal-row td {
+  background:rgba(255,255,255,0.03) !important;
+  color:var(--text) !important; font-weight:600;
+}
+
+/* ─── CHECKLISTS ─── */
+.cklist { list-style:none; margin:12px 0; }
+.cklist li {
+  padding:8px 12px 8px 34px;
+  position:relative; font-size:13px;
+  color:var(--text2);
+  border-bottom:1px solid var(--border);
+}
+.cklist li:last-child { border-bottom:none; }
+.cklist li::before {
+  content:''; position:absolute; left:10px; top:50%; transform:translateY(-50%);
+  width:14px; height:14px; border:1.5px solid rgba(255,107,0,0.5);
+  border-radius:4px;
+}
+.cklist li.note { color:var(--text3); font-size:12px; font-style:italic; }
+.cklist li.note::before {
+  content:'i'; border:1.5px solid rgba(10,132,255,0.5);
+  color:var(--blue); font-size:9px; font-style:normal;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* ─── CALLOUTS ─── */
+.box {
+  padding:16px 18px; border-radius:12px;
+  margin:16px 0; font-size:13px;
+  border:1px solid; color:var(--text2);
+  line-height:1.6;
+}
+.box strong {
+  display:block; margin-bottom:5px;
+  font-size:11px; text-transform:uppercase;
+  letter-spacing:0.8px; font-weight:700;
+}
+.box-info { background:var(--blue-dim); border-color:rgba(10,132,255,0.25); }
+.box-info strong { color:var(--blue); }
+.box-warn { background:var(--yellow-dim); border-color:rgba(255,214,10,0.25); }
+.box-warn strong { color:var(--yellow); }
+.box-ok { background:var(--green-dim); border-color:rgba(48,209,88,0.25); }
+.box-ok strong { color:var(--green); }
+.box-alert { background:var(--red-dim); border-color:rgba(255,69,58,0.25); }
+.box-alert strong { color:var(--red); }
+
+/* ─── KPI GRID ─── */
+.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:16px 0; }
+.kpi-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px; padding:18px;
+  transition:border-color 0.2s;
+}
+.kpi-card:hover { border-color:rgba(255,107,0,0.3); }
+.kpi-card .k-lbl {
+  font-size:10px; text-transform:uppercase;
+  letter-spacing:1px; color:var(--text3); font-weight:600;
+}
+.kpi-card .k-val {
+  font-size:28px; font-weight:700;
+  color:var(--orange); margin:6px 0 2px;
+  letter-spacing:-1px; line-height:1;
+}
+.kpi-card .k-frq { font-size:11px; color:var(--text3); }
+.kpi-card .k-dir { font-size:11px; color:var(--text2); margin-top:2px; }
+
+/* ─── SOPs ─── */
+.sop {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px; padding:20px 22px;
+  margin:14px 0;
+}
+.sop-title {
+  font-weight:700; color:var(--orange);
+  font-size:11px; text-transform:uppercase;
+  letter-spacing:1.2px; margin-bottom:16px;
+  padding-bottom:12px; border-bottom:1px solid var(--border);
+}
+.sop-step {
+  display:flex; gap:12px; margin:8px 0;
+  font-size:13px; color:var(--text2);
+  align-items:flex-start;
+}
+.sop-n {
+  background:var(--orange-dim);
+  border:1px solid rgba(255,107,0,0.3);
+  color:var(--orange);
+  min-width:24px; height:24px; border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:10px; font-weight:700; flex-shrink:0;
+  margin-top:1px;
+}
+
+/* ─── TWO / THREE COL ─── */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:14px 0; }
+.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:14px 0; }
+.col-box {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px; padding:18px;
+  transition:border-color 0.2s;
+}
+.col-box:hover { border-color:rgba(255,107,0,0.2); }
+.col-box h4 { margin-top:0; }
+
+/* ─── WEEK PLAN ─── */
+.week {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left:3px solid var(--orange);
+  padding:14px 18px; margin:8px 0;
+  border-radius:0 10px 10px 0; font-size:13px;
+  color:var(--text2); line-height:1.7;
+}
+.week .wk-ttl {
+  font-weight:700; color:var(--text);
+  margin-bottom:6px; font-size:14px;
+  letter-spacing:-0.3px;
+}
+
+/* ─── TAGS ─── */
+.tag {
+  display:inline-block; padding:2px 10px;
+  border-radius:20px; font-size:11px;
+  font-weight:600; margin:2px; letter-spacing:0.3px;
+}
+.tag-g { background:var(--green-dim); color:var(--green); border:1px solid rgba(48,209,88,0.2); }
+.tag-o { background:var(--yellow-dim); color:var(--yellow); border:1px solid rgba(255,214,10,0.2); }
+.tag-r { background:var(--red-dim); color:var(--red); border:1px solid rgba(255,69,58,0.2); }
+.tag-b { background:var(--blue-dim); color:var(--blue); border:1px solid rgba(10,132,255,0.2); }
+.tag-p { background:rgba(191,90,242,0.12); color:#bf5af2; border:1px solid rgba(191,90,242,0.2); }
+
+/* ─── RECIPE CARDS ─── */
+.recipe {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px; padding:18px;
+  margin:10px 0;
+  transition:border-color 0.2s;
+}
+.recipe:hover { border-color:rgba(255,107,0,0.25); }
+.recipe .r-name {
+  font-size:15px; font-weight:600;
+  color:var(--text); padding-bottom:10px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:12px;
+  display:flex; justify-content:space-between; align-items:center;
+  letter-spacing:-0.3px;
+}
+.recipe .r-name span {
+  font-size:11px; color:var(--orange);
+  font-weight:500; letter-spacing:0.5px;
+}
+
+/* ─── GANTT ─── */
+.gantt-wrap { overflow-x:auto; margin:16px 0; border-radius:12px; border:1px solid var(--border); }
+.gantt-wrap table { min-width:1100px; border-radius:0; }
+.gantt-wrap th { font-size:9px; padding:8px 4px; text-align:center; white-space:nowrap; }
+.gantt-wrap td { padding:5px 4px; font-size:11px; }
+.gantt-wrap .g-label {
+  background:var(--surface2); font-size:12px;
+  font-weight:500; min-width:170px;
+  white-space:nowrap; color:var(--text2);
+  border-right:1px solid var(--border);
+  padding-left:14px;
+}
+.g-active { background:var(--orange) !important; opacity:0.85; }
+.g-plan { background:rgba(255,107,0,0.25) !important; }
+.g-mile { background:var(--text) !important; }
+.g-soft { background:var(--green) !important; opacity:0.8; }
+.g-post { background:rgba(48,209,88,0.35) !important; }
+
+.gantt-legend {
+  display:flex; gap:20px; margin:0 0 14px;
+  flex-wrap:wrap; font-size:12px; color:var(--text2);
+}
+.gl { display:flex; align-items:center; gap:7px; }
+.gl-dot { width:14px; height:14px; border-radius:3px; flex-shrink:0; }
+
+/* ─── PRINT ─── */
+@media print {
+  .sidebar { display:none !important; }
+  .main { margin-left:0; }
+  .section { break-inside:avoid; padding:30px 40px; }
+  h2, h3 { break-after:avoid; }
+  body { background:#fff !important; color:#000 !important; }
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width:960px) {
+  .sidebar { width:220px; }
+  .main { margin-left:220px; }
+  .cover, .section { padding:48px 36px; }
+  .kpi-grid { grid-template-columns:1fr 1fr; }
+  .two-col, .three-col { grid-template-columns:1fr; }
+  .cover h1 { font-size:36px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── SIDEBAR ─── -->
+<div class="sidebar">
+  <div class="sb-brand">
+    <h1>Coffee Shop Manual</h1>
+    <p>Malaysia Edition · Complete Guide</p>
+  </div>
+  <nav>
+    <div class="sb-section">Foundation</div>
+    <a href="#cover">Overview</a>
+    <a href="#s1">① Business Planning</a>
+    <a href="#s2">② Location &amp; Renovation</a>
+    <a href="#s3">③ Licenses &amp; Legal</a>
+    <a href="#s4">④ Equipment &amp; Procurement</a>
+    <div class="sb-section">Operations</div>
+    <a href="#s5">⑤ Menu Development</a>
+    <a href="#s6">⑥ Supplier Management</a>
+    <a href="#s7">⑦ Hiring &amp; HR</a>
+    <a href="#s8">⑧ SOPs</a>
+    <a href="#s9">⑨ Daily Operations</a>
+    <div class="sb-section">Growth</div>
+    <a href="#s10">⑩ KPIs</a>
+    <a href="#s11">⑪ Marketing</a>
+    <a href="#s12">⑫ Financial Management</a>
+    <a href="#s13">⑬ Risk Management</a>
+    <a href="#s14">⑭ First 90 Days</a>
+    <div class="sb-section">Documents</div>
+    <a href="#checklists">Daily Checklists</a>
+    <a href="#weekly">Weekly &amp; Monthly</a>
+    <a href="#inventory">Inventory &amp; Orders</a>
+    <a href="#logs">Logs &amp; Records</a>
+    <a href="#finance-docs">Finance Docs</a>
+    <a href="#gantt">Project Gantt</a>
+  </nav>
+</div>
+
+<!-- ─── MAIN ─── -->
+<div class="main">
+
+<!-- COVER -->
+<div class="cover" id="cover">
+  <div class="cover-tag">The Complete Guide</div>
+  <h1>The <em>Coffee Shop</em><br>Operations Manual</h1>
+  <div class="sub">From concept to grand opening and beyond — a step-by-step system for launching and running a profitable coffee shop in Malaysia.</div>
+  <div class="cover-stats">
+    <div class="cv-stat"><div class="n">14</div><div class="l">Stages</div></div>
+    <div class="cv-stat"><div class="n">40+</div><div class="l">Templates</div></div>
+    <div class="cv-stat"><div class="n">10</div><div class="l">SOPs</div></div>
+    <div class="cv-stat"><div class="n">39</div><div class="l">Weeks</div></div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STAGE 1: BUSINESS PLANNING -->
+<!-- ============================================================ -->
+<div class="section" id="s1">
+  <div class="sec-head">
+    <div class="sec-num">1</div>
+    <div class="sec-info">
+      <h2>Business Planning</h2>
+      <p>Define your concept, customers, finances, and competitive edge before spending a single ringgit.</p>
+    </div>
+  </div>
+
+  <h3>Business Concept Framework</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Element</th><th>Description</th><th>Your Answer</th></tr>
+    <tr><td><strong style="color:var(--text)">Mission</strong></td><td>Why this shop exists</td><td style="color:var(--text3);font-style:italic">e.g. "To serve specialty-grade coffee in a space that feels like a second home"</td></tr>
+    <tr><td><strong style="color:var(--text)">Vision</strong></td><td>3-year aspirational picture</td><td style="color:var(--text3);font-style:italic">e.g. "Expand to 3 outlets in the Klang Valley"</td></tr>
+    <tr><td><strong style="color:var(--text)">Core Concept</strong></td><td>The one sentence pitch</td><td style="color:var(--text3);font-style:italic">e.g. "Specialty espresso + all-day food in a calm, halal environment"</td></tr>
+    <tr><td><strong style="color:var(--text)">Unique Value Prop</strong></td><td>What you do that nobody nearby does</td><td style="color:var(--text3);font-style:italic">e.g. "First specialty coffee shop in this neighbourhood with full halal cert"</td></tr>
+    <tr><td><strong style="color:var(--text)">Price Positioning</strong></td><td>Budget / Mid / Premium</td><td style="color:var(--text3);font-style:italic">Mid-premium: RM 12–20 main items</td></tr>
+    <tr><td><strong style="color:var(--text)">Ambience</strong></td><td>Describe the experience in 3 words</td><td style="color:var(--text3);font-style:italic">e.g. Calm · Warm · Craft</td></tr>
+    <tr><td><strong style="color:var(--text)">Dine-in / Takeaway Split</strong></td><td>Expected revenue split</td><td style="color:var(--text3);font-style:italic">e.g. 60% dine-in / 40% takeaway</td></tr>
+  </table></div>
+
+  <h3>Target Customer Personas</h3>
+  <div class="three-col">
+    <div class="col-box">
+      <h4>Persona A — WFH Professional</h4>
+      <p>Age 25–38, works from laptop, visits 3–5×/week, spends RM 20–35 per visit. Values fast WiFi, good coffee, and a quiet seat. Loyalty-card user. Peak hours: 9am–12pm weekdays.</p>
+    </div>
+    <div class="col-box">
+      <h4>Persona B — Weekend Social Group</h4>
+      <p>Age 22–32, comes with 2–4 friends, visits 1–2×/week, spends RM 15–25 per person. Values Instagram-worthy drinks, good food, relaxed atmosphere. Peak: Sat–Sun 10am–3pm.</p>
+    </div>
+    <div class="col-box">
+      <h4>Persona C — Neighbourhood Regular</h4>
+      <p>Age 30–55, resident within 3km, visits daily, spends RM 8–15, usually takeaway. Values consistency, familiar staff, fast service. Peak: 7am–9am, 5pm–7pm.</p>
+    </div>
+  </div>
+
+  <h3>Menu Mix Strategy</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Category</th><th>% of Menu Items</th><th>% of Expected Revenue</th><th>Avg Selling Price</th></tr>
+    <tr><td>Espresso-based Coffee</td><td>30%</td><td>40%</td><td>RM 12–16</td></tr>
+    <tr><td>Non-coffee (Matcha, Taro, Choco)</td><td>20%</td><td>18%</td><td>RM 13–17</td></tr>
+    <tr><td>Cold Brew / Filter Coffee</td><td>10%</td><td>10%</td><td>RM 12–15</td></tr>
+    <tr><td>Tea / Other Beverages</td><td>10%</td><td>7%</td><td>RM 8–12</td></tr>
+    <tr><td>All-Day Breakfast / Toast</td><td>15%</td><td>13%</td><td>RM 14–22</td></tr>
+    <tr><td>Cakes / Pastries</td><td>15%</td><td>12%</td><td>RM 8–14</td></tr>
+  </table></div>
+
+  <h3>Pricing Strategy</h3>
+  <p>Use a <strong style="color:var(--text)">Cost-Plus with Market Validation</strong> approach. Calculate your true cost, add a margin, then verify against local competitors.</p>
+  <div class="tbl-wrap"><table>
+    <tr><th>Step</th><th>Formula</th><th>Example (Latte)</th></tr>
+    <tr><td>1. Calculate COGS</td><td>Ingredients + Packaging + Utilities portion</td><td>RM 2.80 + RM 0.40 + RM 0.30 = RM 3.50</td></tr>
+    <tr><td>2. Apply Target Cost %</td><td>Target cost % for beverages: 25–28%</td><td>RM 3.50 ÷ 0.27 = RM 12.96</td></tr>
+    <tr><td>3. Round &amp; market validate</td><td>Check against 3 nearby competitors</td><td>Round to RM 13 (within RM 12–16 range)</td></tr>
+    <tr><td>4. Contribution Margin Check</td><td>Selling Price – COGS</td><td>RM 13 – RM 3.50 = RM 9.50 per cup ✓</td></tr>
+  </table></div>
+  <div class="box box-info"><strong>💡 Pricing Principle</strong> Price to value, not just cost. Ambience, quality, and location justify premium pricing. Underpricing devalues your brand and is very hard to reverse.</div>
+
+  <h3>Competitor Analysis Matrix</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Criteria</th><th>Your Shop</th><th>Competitor A</th><th>Competitor B</th><th>Competitor C</th></tr>
+    <tr><td>Price (avg drink)</td><td style="color:var(--orange)">RM 13–16</td><td>RM 10–14</td><td>RM 15–20</td><td>RM 8–12</td></tr>
+    <tr><td>Quality of Coffee</td><td style="color:var(--orange)">Specialty</td><td>Commercial</td><td>Specialty</td><td>Commercial</td></tr>
+    <tr><td>Halal Certified</td><td style="color:var(--orange)">Yes (target)</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+    <tr><td>WiFi Quality</td><td style="color:var(--orange)">Fast + reliable</td><td>Average</td><td>Good</td><td>None</td></tr>
+    <tr><td>Seating Capacity</td><td style="color:var(--orange)">40 pax</td><td>25 pax</td><td>60 pax</td><td>15 pax</td></tr>
+    <tr><td>Food Menu Depth</td><td style="color:var(--orange)">Focused (15 items)</td><td>Extensive</td><td>Minimal</td><td>No food</td></tr>
+    <tr><td>Google Rating</td><td style="color:var(--orange)">Target: 4.6+</td><td>4.2</td><td>4.5</td><td>4.3</td></tr>
+    <tr><td>Key Weakness</td><td>—</td><td>Inconsistent quality</td><td>Too expensive</td><td>No ambience</td></tr>
+  </table></div>
+
+  <h3>12-Month Financial Projections</h3>
+  <div class="box box-info"><strong>📌 Assumptions</strong> 600 sq ft outlet, 40 seats, avg transaction value RM 18, daily covers building from 60 to 150. All figures in Ringgit Malaysia (RM).</div>
+  <div class="tbl-wrap"><table>
+    <tr><th>Month</th><th>Daily Covers</th><th>Monthly Revenue</th><th>COGS (30%)</th><th>Labour (28%)</th><th>Rent &amp; Util (18%)</th><th>Other (7%)</th><th>Net Profit</th></tr>
+    <tr><td>Month 1 (Soft Opening)</td><td>60–80</td><td>32,400</td><td>9,720</td><td>9,072</td><td>5,832</td><td>2,268</td><td><strong style="color:var(--red)">−1,008</strong></td></tr>
+    <tr><td>Month 2</td><td>80–100</td><td>43,200</td><td>12,960</td><td>12,096</td><td>7,776</td><td>3,024</td><td><strong style="color:var(--green)">+7,344</strong></td></tr>
+    <tr><td>Month 3</td><td>95–115</td><td>50,400</td><td>15,120</td><td>14,112</td><td>9,072</td><td>3,528</td><td><strong style="color:var(--green)">+8,568</strong></td></tr>
+    <tr><td>Month 4</td><td>110–130</td><td>57,600</td><td>17,280</td><td>16,128</td><td>10,368</td><td>4,032</td><td><strong style="color:var(--green)">+9,792</strong></td></tr>
+    <tr><td>Month 5</td><td>120–140</td><td>64,800</td><td>19,440</td><td>18,144</td><td>11,664</td><td>4,536</td><td><strong style="color:var(--green)">+11,016</strong></td></tr>
+    <tr><td>Month 6</td><td>130–150</td><td>72,000</td><td>21,600</td><td>20,160</td><td>12,960</td><td>5,040</td><td><strong style="color:var(--green)">+12,240</strong></td></tr>
+    <tr><td>Month 7–9 avg</td><td>135–155</td><td>75,600</td><td>22,680</td><td>21,168</td><td>13,608</td><td>5,292</td><td><strong style="color:var(--green)">+12,852</strong></td></tr>
+    <tr><td>Month 10–12 avg</td><td>145–165</td><td>84,000</td><td>25,200</td><td>23,520</td><td>15,120</td><td>5,880</td><td><strong style="color:var(--green)">+14,280</strong></td></tr>
+    <tr class="total-row"><td colspan="2">12-Month Total (est.)</td><td>≈ RM 724,000</td><td>≈ 217,200</td><td>≈ 202,720</td><td>≈ 130,320</td><td>≈ 50,680</td><td>≈ RM 123,080</td></tr>
+  </table></div>
+
+  <h3>Break-Even Analysis</h3>
+  <div class="two-col">
+    <div class="col-box">
+      <h4>Fixed Monthly Costs</h4>
+      <table style="border:none"><tr style="border:none"><td style="border:none;padding:4px 0">Rent</td><td style="border:none;padding:4px 0;text-align:right;color:var(--text)">RM 6,500</td></tr>
+      <tr style="border:none"><td style="border:none;padding:4px 0">Full-time Staff (3 pax)</td><td style="border:none;padding:4px 0;text-align:right;color:var(--text)">RM 7,500</td></tr>
+      <tr style="border:none"><td style="border:none;padding:4px 0">Utilities (est.)</td><td style="border:none;padding:4px 0;text-align:right;color:var(--text)">RM 2,000</td></tr>
+      <tr style="border:none"><td style="border:none;padding:4px 0">Loan Repayment</td><td style="border:none;padding:4px 0;text-align:right;color:var(--text)">RM 3,000</td></tr>
+      <tr style="border:none"><td style="border:none;padding:4px 0">Insurance &amp; Other</td><td style="border:none;padding:4px 0;text-align:right;color:var(--text)">RM 800</td></tr>
+      <tr style="border-top:1px solid var(--border)!important"><td style="border:none;padding:8px 0 4px;font-weight:700;color:var(--text)">Total Fixed</td><td style="border:none;padding:8px 0 4px;text-align:right;font-weight:700;color:var(--orange)">RM 19,800</td></tr></table>
+    </div>
+    <div class="col-box">
+      <h4>Break-Even Calculation</h4>
+      <p><strong style="color:var(--text)">Contribution Margin per cup:</strong> RM 18 × 70% = RM 12.60</p>
+      <p><strong style="color:var(--text)">Break-Even Revenue:</strong> RM 19,800 ÷ 0.70 = RM 28,286/month</p>
+      <p><strong style="color:var(--text)">Break-Even Daily Revenue:</strong> RM 28,286 ÷ 26 days = RM 1,088/day</p>
+      <p><strong style="color:var(--text)">Break-Even Daily Covers:</strong> RM 1,088 ÷ RM 18 ATV = <strong style="color:var(--orange)">~61 customers/day</strong></p>
+      <div class="box box-ok" style="margin-top:10px"><strong>✓ Target</strong> Reach break-even by end of Month 1. Profitable from Month 2.</div>
+    </div>
+  </div>
+
+  <h3>Startup Budget</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Category</th><th>Min (RM)</th><th>Max (RM)</th><th>Notes</th></tr>
+    <tr><td>Renovation &amp; Fit-out</td><td>60,000</td><td>150,000</td><td>Per sq ft RM 100–250</td></tr>
+    <tr><td>Espresso Machine (commercial)</td><td>20,000</td><td>60,000</td><td>New / refurbished 2-group</td></tr>
+    <tr><td>Grinders (×2)</td><td>5,000</td><td>18,000</td><td>Dose-on-demand recommended</td></tr>
+    <tr><td>Other Equipment &amp; Smallwares</td><td>15,000</td><td>35,000</td><td>Fridge, blender, POS, etc.</td></tr>
+    <tr><td>Water Filtration System</td><td>3,000</td><td>8,000</td><td>Critical for coffee quality</td></tr>
+    <tr><td>Licenses &amp; Deposits</td><td>8,000</td><td>20,000</td><td>Rental deposit 3 months</td></tr>
+    <tr><td>Initial Inventory</td><td>5,000</td><td>12,000</td><td>2–3 weeks stock</td></tr>
+    <tr><td>Marketing &amp; Branding</td><td>8,000</td><td>20,000</td><td>Logo, signage, social launch</td></tr>
+    <tr><td>Working Capital Reserve</td><td>20,000</td><td>50,000</td><td>3 months operating buffer</td></tr>
+    <tr class="total-row"><td>Total Estimated</td><td>RM 144,000</td><td>RM 373,000</td><td>Avg target: RM 200,000–250,000</td></tr>
+  </table></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STAGE 2: LOCATION & RENOVATION -->
+<!-- ============================================================ -->
+<div class="section" id="s2">
+  <div class="sec-head">
+    <div class="sec-num">2</div>
+    <div class="sec-info">
+      <h2>Location &amp; Renovation</h2>
+      <p>Choose the right space, design for flow, and renovate on time and on budget.</p>
+    </div>
+  </div>
+
+  <h3>Site Selection Scoring Matrix</h3>
+  <p>Score each candidate location out of 5. Minimum threshold to proceed: 60 / 100.</p>
+  <div class="tbl-wrap"><table>
+    <tr><th>Criterion</th><th>Weight</th><th>Site A Score</th><th>Site B Score</th><th>Notes</th></tr>
+    <tr><td>Foot traffic (daily count)</td><td>×3</td><td>/5</td><td>/5</td><td>Count weekday &amp; weekend manually</td></tr>
+    <tr><td>Visibility / street frontage</td><td>×2</td><td>/5</td><td>/5</td><td>Can signage be seen from 50m?</td></tr>
+    <tr><td>Parking availability</td><td>×2</td><td>/5</td><td>/5</td><td>Count spaces within 100m</td></tr>
+    <tr><td>Proximity to offices / schools</td><td>×2</td><td>/5</td><td>/5</td><td>Walk 5 min = high score</td></tr>
+    <tr><td>Rental rate (vs budget)</td><td>×2</td><td>/5</td><td>/5</td><td>RM 6–10/sq ft Selangor target</td></tr>
+    <tr><td>Lease terms (min 3 years)</td><td>×2</td><td>/5</td><td>/5</td><td>Shorter = risk</td></tr>
+    <tr><td>Utilities infrastructure</td><td>×2</td><td>/5</td><td>/5</td><td>3-phase power, gas, water</td></tr>
+    <tr><td>Existing fit-out condition</td><td>×1</td><td>/5</td><td>/5</td><td>Less reno = lower cost</td></tr>
+    <tr><td>Competitor proximity</td><td>×1</td><td>/5</td><td>/5</td><td>No similar shop within 300m = 5pts</td></tr>
+    <tr><td>Demographic match</td><td>×2</td><td>/5</td><td>/5</td><td>Target personas live/work nearby?</td></tr>
+    <tr class="subtotal-row"><td colspan="2">Total (max 95pts)</td><td>/95</td><td>/95</td><td></td></tr>
+  </table></div>
+
+  <h3>Ideal Space Specifications</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Spec</th><th>Minimum</th><th>Ideal</th></tr>
+    <tr><td>Total Floor Area</td><td>500 sq ft</td><td>800–1,200 sq ft</td></tr>
+    <tr><td>Bar / Counter Area</td><td>80 sq ft</td><td>120–150 sq ft</td></tr>
+    <tr><td>Kitchen / Prep Area</td><td>60 sq ft</td><td>80–100 sq ft</td></tr>
+    <tr><td>Seating Capacity</td><td>20 pax</td><td>40–60 pax</td></tr>
+    <tr><td>Ceiling Height</td><td>10 ft</td><td>12–14 ft</td></tr>
+    <tr><td>Electrical Supply</td><td>63A 3-phase</td><td>100A 3-phase</td></tr>
+    <tr><td>Restroom</td><td>1 unisex</td><td>2 separate (M/F)</td></tr>
+    <tr><td>Natural Light</td><td>Some</td><td>Front-facing windows</td></tr>
+  </table></div>
+
+  <h3>Layout Zones &amp; Customer Flow</h3>
+  <div class="two-col">
+    <div class="col-box">
+      <h4>Zone Planning</h4>
+      <ul>
+        <li><strong style="color:var(--text)">Entry Zone:</strong> Clear sightline to menu board, cashier immediately visible, aroma draws customers in</li>
+        <li><strong style="color:var(--text)">Order &amp; Pay:</strong> Single queue line, POS at shoulder height, menu board above and behind staff</li>
+        <li><strong style="color:var(--text)">Bar Zone:</strong> Espresso machine facing customers (theatre effect), waste chute below, milk fridge within arm's reach</li>
+        <li><strong style="color:var(--text)">Collection Point:</strong> Separate from order point, clear signage, napkins &amp; condiments nearby</li>
+        <li><strong style="color:var(--text)">Seating:</strong> Mix of 2-top, 4-top, window bar seating. Power outlets at every third seat minimum</li>
+        <li><strong style="color:var(--text)">Restroom:</strong> Rear of space, never adjacent to food prep</li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <h4>Bar Workflow (Left to Right)</h4>
+      <ul>
+        <li>① Grinder → ② Portafilter prep → ③ Espresso machine → ④ Milk steaming station → ⑤ Cup assembly</li>
+        <li>Barista should never cross paths mid-order</li>
+        <li>Cold brew / batch brew tap at end of bar</li>
+        <li>Ice machine under counter, accessible mid-bar</li>
+        <li>Blender station for frappes: away from espresso zone (noise + vibration)</li>
+        <li>Speed rail: most used syrups &amp; powders at arm's reach</li>
+        <li>Cup station directly above bar, pre-warmed cups on machine</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Renovation Timeline</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Week</th><th>Phase</th><th>Activities</th><th>Who</th></tr>
+    <tr><td>W1</td><td>Design &amp; Planning</td><td>Finalise floor plan, get 3 contractor quotes, submit LA renovation notice</td><td>Owner + Architect</td></tr>
+    <tr><td>W2</td><td>Demolition</td><td>Strip existing fit-out, inspect structure, confirm electrical load</td><td>Contractor</td></tr>
+    <tr><td>W3–4</td><td>Structural &amp; MEP</td><td>Plumbing, electrical wiring, air-con ducting, floor levelling</td><td>Sub-contractors</td></tr>
+    <tr><td>W5–6</td><td>Build &amp; Fit-out</td><td>Partition walls, ceiling, floor tiles/epoxy, bar counter construction</td><td>Contractor</td></tr>
+    <tr><td>W7</td><td>Finishing</td><td>Painting, lighting installation, joinery (shelves, counters, cabinets)</td><td>Contractor</td></tr>
+    <tr><td>W8</td><td>Equipment Install</td><td>Espresso machine plumbing, cold room, hood/exhaust, POS wiring</td><td>Equipment suppliers</td></tr>
+    <tr><td>W9</td><td>Snagging</td><td>Walk-through, fix defects, deep clean, BOMBA inspection</td><td>Owner + Contractor</td></tr>
+    <tr><td>W10</td><td>Setup &amp; Dressing</td><td>Furniture, décor, signage, staff training area setup</td><td>Owner + Team</td></tr>
+  </table></div>
+  <div class="box box-warn"><strong>⚠️ Budget Buffer</strong> Always add 15–20% contingency to renovation budget. Delays and hidden defects are almost universal. A 10-week timeline is realistic — do not compress below 8 weeks.</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STAGE 3: LICENSES & LEGAL -->
+<!-- ============================================================ -->
+<div class="section" id="s3">
+  <div class="sec-head">
+    <div class="sec-num">3</div>
+    <div class="sec-info">
+      <h2>Licenses &amp; Legal</h2>
+      <p>Malaysia-specific registration, permits, halal certification, and employment compliance.</p>
+    </div>
+  </div>
+
+  <h3>Business Registration (SSM)</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Structure</th><th>Registration Body</th><th>Min Capital</th><th>Liability</th><th>Recommended for</th></tr>
+    <tr><td>Sole Proprietorship / Partnership</td><td>SSM (ROB)</td><td>None</td><td>Unlimited</td><td>Testing phase only</td></tr>
+    <tr><td><strong style="color:var(--orange)">Sdn. Bhd.</strong></td><td>SSM (ROC)</td><td>RM 1</td><td><span class="tag tag-g">Limited ✓</span></td><td>Recommended — protects personal assets</td></tr>
+  </table></div>
+  <ul class="cklist">
+    <li>Register company name via MyCoID portal (SSM.com.my)</li>
+    <li>Prepare M&amp;A (Memorandum &amp; Articles of Association)</li>
+    <li>Appoint directors (min. 1 director, Malaysian resident)</li>
+    <li>Open business bank account (Maybank / CIMB / RHB recommended)</li>
+    <li>Register for LHDN (income tax) — Company Tax No.</li>
+    <li>Register for SST if projected revenue &gt; RM 500,000/yr</li>
+    <li>Register for EPF (KWSP), SOCSO (PERKESO), and EIS with each employee</li>
+    <li>Engage an accountant / corporate secretary from Day 1</li>
+  </ul>
+
+  <h3>Operating Licenses (Local Authority)</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>License</th><th>Issuing Authority</th><th>Timeline</th><th>Approx Cost (RM)</th><th>Validity</th></tr>
+    <tr><td>Business Premise License</td><td>MBSA / MPAJ / DBKL</td><td>2–4 weeks</td><td>200–800/yr</td><td>Annual</td></tr>
+    <tr><td>Signboard License</td><td>Same local authority</td><td>2–3 weeks</td><td>100–500/yr</td><td>Annual</td></tr>
+    <tr><td>Food Premises License</td><td>Local Authority Health Dept</td><td>4–6 weeks</td><td>50–300</td><td>Annual</td></tr>
+    <tr><td>BOMBA Fire Safety Certificate</td><td>Jabatan Bomba &amp; Penyelamat</td><td>2–4 weeks after fit-out</td><td>Free (inspection)</td><td>Tied to premise</td></tr>
+    <tr><td>Sewerage License</td><td>IWK</td><td>1–2 weeks</td><td>Varies</td><td>Ongoing billing</td></tr>
+    <tr><td>Outdoor Seating Permit</td><td>Local Authority</td><td>4–6 weeks</td><td>500–2,000/yr</td><td>Annual</td></tr>
+  </table></div>
+
+  <h3>Halal Certification (JAKIM)</h3>
+  <div class="box box-warn"><strong>⚠️ Important</strong> Halal certification from JAKIM takes 3–6 months minimum. Apply immediately once your business is registered. Operating with "HALAL" signage without cert is a legal offence.</div>
+  <ul class="cklist">
+    <li>Apply via JAKIM's online portal: halal.gov.my</li>
+    <li>All ingredients must be from JAKIM-approved halal suppliers</li>
+    <li>Maintain halal ingredient log (purchase orders as proof)</li>
+    <li>Ensure no cross-contamination protocols in place</li>
+    <li>Non-halal items (alcohol, pork) must be completely absent</li>
+    <li>JAKIM audit: inspector visits unannounced — premises must always be compliant</li>
+    <li>Renewal: every 2 years. Display cert prominently at entrance.</li>
+    <li class="note">During the waiting period, promote as "No pork, no lard, no alcohol" — do not use the HALAL logo until certified</li>
+  </ul>
+
+  <h3>Insurance Coverage</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Policy Type</th><th>Coverage</th><th>Approx Annual Premium (RM)</th><th>Priority</th></tr>
+    <tr><td>Fire &amp; Perils (Business)</td><td>Building contents, equipment, stock</td><td>1,000–3,000</td><td><span class="tag tag-r">Essential</span></td></tr>
+    <tr><td>Public Liability</td><td>Customer injury on premises</td><td>800–2,000</td><td><span class="tag tag-r">Essential</span></td></tr>
+    <tr><td>Equipment Breakdown</td><td>Espresso machine, cold room, POS</td><td>500–1,500</td><td><span class="tag tag-o">Important</span></td></tr>
+    <tr><td>Business Interruption</td><td>Loss of income during closure</td><td>600–1,500</td><td><span class="tag tag-o">Important</span></td></tr>
+    <tr><td>Employer's Liability</td><td>Staff injury at work</td><td>300–800</td><td><span class="tag tag-r">Essential</span></td></tr>
+    <tr><td>SOCSO (statutory)</td><td>Employee accident insurance</td><td>~1.75% payroll</td><td><span class="tag tag-r">Mandatory</span></td></tr>
+  </table></div>
+
+  <h3>Employment Essentials (Employment Act 1955)</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Item</th><th>Legal Requirement</th></tr>
+    <tr><td>Minimum Wage</td><td>RM 1,700 / month (verify current rate)</td></tr>
+    <tr><td>Working Hours</td><td>Max 48 hrs/week, max 8 hrs/day</td></tr>
+    <tr><td>Rest Day</td><td>Min. 1 rest day/week</td></tr>
+    <tr><td>Annual Leave</td><td>8–16 days based on service length</td></tr>
+    <tr><td>EPF Contribution</td><td>Employer: 13%, Employee: 11% of salary</td></tr>
+    <tr><td>SOCSO</td><td>Employer: 1.75%, Employee: 0.5%</td></tr>
+    <tr><td>EIS</td><td>Employer + Employee: 0.2% each</td></tr>
+    <tr><td>Notice Period</td><td>&lt;2 yrs: 4 weeks; 2–5 yrs: 6 weeks; &gt;5 yrs: 8 weeks</td></tr>
+  </table></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STAGE 4: EQUIPMENT -->
+<!-- ============================================================ -->
+<div class="section" id="s4">
+  <div class="sec-head">
+    <div class="sec-num">4</div>
+    <div class="sec-info">
+      <h2>Equipment &amp; Procurement</h2>
+      <p>Complete equipment list with Malaysian market pricing and selection guidance.</p>
+    </div>
+  </div>
+
+  <h3>Complete Equipment List</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Equipment</th><th>Spec / Model Type</th><th>Min Price (RM)</th><th>Mid Price (RM)</th><th>Notes</th></tr>
+    <tr><td colspan="5" style="background:rgba(255,107,0,0.08);color:var(--orange);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase">☕ COFFEE BAR</td></tr>
+    <tr><td>Commercial Espresso Machine</td><td>2-group semi-auto</td><td>15,000</td><td>45,000</td><td>La Marzocco / Faema / Rancilio / Expobar</td></tr>
+    <tr><td>Espresso Grinder (primary)</td><td>Dose-on-demand</td><td>4,000</td><td>10,000</td><td>Mythos / Mahlkönig E65S / Mazzer</td></tr>
+    <tr><td>Espresso Grinder (decaf/filter)</td><td>Burr grinder</td><td>1,500</td><td>4,000</td><td>Eureka / Baratza</td></tr>
+    <tr><td>Water Filtration System</td><td>3-stage with softener</td><td>3,000</td><td>8,000</td><td>BWT / Everpure — non-negotiable for quality</td></tr>
+    <tr><td>Commercial Blender (×2)</td><td>1-2HP variable speed</td><td>800</td><td>3,000</td><td>Vitamix / Blendtec</td></tr>
+    <tr><td colspan="5" style="background:rgba(255,107,0,0.08);color:var(--orange);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase">🧊 REFRIGERATION</td></tr>
+    <tr><td>Under-counter Bar Fridge</td><td>2-door, 150L+</td><td>2,500</td><td>5,500</td><td>For milk, cold brew, syrups</td></tr>
+    <tr><td>Upright Showcase Fridge</td><td>400L+ glass door</td><td>3,000</td><td>8,000</td><td>For cakes, pastries display</td></tr>
+    <tr><td>Commercial Ice Machine</td><td>30–50 kg/day output</td><td>3,000</td><td>8,000</td><td>Hoshizaki / Manitowoc recommended</td></tr>
+    <tr><td colspan="5" style="background:rgba(255,107,0,0.08);color:var(--orange);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase">🍳 KITCHEN</td></tr>
+    <tr><td>Commercial Kitchen Oven (convection)</td><td>6-tray electric</td><td>2,000</td><td>6,000</td><td>For toasting, warming pastries</td></tr>
+    <tr><td>Kitchen Hood + Exhaust Fan</td><td>Min 1.5m, stainless steel</td><td>3,000</td><td>8,000</td><td>Required by BOMBA / local authority</td></tr>
+    <tr><td>3-compartment Sink</td><td>Stainless, NSF grade</td><td>2,000</td><td>4,000</td><td>Wash, rinse, sanitize</td></tr>
+    <tr><td colspan="5" style="background:rgba(255,107,0,0.08);color:var(--orange);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase">💻 TECHNOLOGY & POS</td></tr>
+    <tr><td>POS System</td><td>Cloud-based with inventory module</td><td>2,000</td><td>8,000</td><td>StoreHub / Revel / Square</td></tr>
+    <tr><td>Receipt Printer + Cash Drawer</td><td>Thermal, USB/LAN</td><td>500</td><td>1,200</td><td>Epson TM-T82 series</td></tr>
+    <tr><td>WiFi Router (high-capacity)</td><td>Dual-band, mesh-capable</td><td>300</td><td>1,000</td><td>Unifi recommended; guest network separate</td></tr>
+    <tr><td>Commercial Dishwasher</td><td>Under-counter hood type</td><td>5,000</td><td>12,000</td><td>Meiko / Winterhalter</td></tr>
+    <tr class="total-row"><td colspan="2">Total Equipment (estimate)</td><td>RM 64,300</td><td>RM 173,900</td><td>Target: RM 80,000–120,000</td></tr>
+  </table></div>
+  <div class="box box-info"><strong>💡 Buy vs. Lease</strong> For the espresso machine, consider leasing from a reputable supplier — some provide maintenance, free repairs, and bean supply packages. Compare total cost of ownership over 3 years before deciding.</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STAGE 5: MENU DEVELOPMENT -->
+<!-- ============================================================ -->
+<div class="section" id="s5">
+  <div class="sec-head">
+    <div class="sec-num">5</div>
+    <div class="sec-info">
+      <h2>Menu Development</h2>
+      <p>Recipe creation, costing methodology, and portion control standards.</p>
+    </div>
+  </div>
+
+  <h3>Sample Recipe Cards</h3>
+  <div class="two-col">
+    <div class="recipe">
+      <div class="r-name">Flat White <span>BEV-001</span></div>
+      <table style="border:none"><tr><th>Ingredient</th><th>Qty</th><th>Cost (RM)</th></tr>
+        <tr><td>Espresso (double shot, 18g in / 36g out)</td><td>36g</td><td>1.40</td></tr>
+        <tr><td>Fresh full-cream milk</td><td>160ml</td><td>0.72</td></tr>
+        <tr><td>Cup (6oz ceramic / 8oz paper)</td><td>1</td><td>0.35–0.45</td></tr>
+        <tr class="subtotal-row"><td colspan="2">Total COGS</td><td>RM 2.47</td></tr>
+        <tr><td colspan="2">Selling Price</td><td style="color:var(--orange);font-weight:700">RM 12</td></tr>
+        <tr><td colspan="2">Cost %</td><td style="color:var(--green)">20.6%</td></tr>
+      </table>
+      <p style="margin-top:10px;font-size:12px;color:var(--text3)">Double ristretto (18g/32g, 25s) → micro-foam milk to 62°C → 160ml → latte art.</p>
+    </div>
+    <div class="recipe">
+      <div class="r-name">Matcha Latte <span>BEV-012</span></div>
+      <table style="border:none"><tr><th>Ingredient</th><th>Qty</th><th>Cost (RM)</th></tr>
+        <tr><td>Ceremonial matcha powder (DRNK / equiv.)</td><td>5g</td><td>1.80</td></tr>
+        <tr><td>Hot water (for paste)</td><td>30ml</td><td>0.02</td></tr>
+        <tr><td>Fresh full-cream milk (steamed)</td><td>220ml</td><td>1.00</td></tr>
+        <tr><td>Simple syrup (optional, 10ml)</td><td>10ml</td><td>0.08</td></tr>
+        <tr><td>Cup (12oz paper / ceramic)</td><td>1</td><td>0.50</td></tr>
+        <tr class="subtotal-row"><td colspan="2">Total COGS</td><td>RM 3.40</td></tr>
+        <tr><td colspan="2">Selling Price</td><td style="color:var(--orange);font-weight:700">RM 14</td></tr>
+        <tr><td colspan="2">Cost %</td><td style="color:var(--green)">24.3%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="recipe">
+      <div class="r-name">Brown Sugar Oat Latte <span>BEV-005</span></div>
+      <table style="border:none"><tr><th>Ingredient</th><th>Qty</th><th>Cost (RM)</th></tr>
+        <tr><td>Espresso (double shot)</td><td>36g</td><td>1.40</td></tr>
+        <tr><td>Oat milk</td><td>200ml</td><td>1.20</td></tr>
+        <tr><td>Brown sugar syrup</td><td>20ml</td><td>0.25</td></tr>
+        <tr><td>Ice (for iced version)</td><td>120g</td><td>0.10</td></tr>
+        <tr><td>Cup (16oz paper)</td><td>1</td><td>0.55</td></tr>
+        <tr class="subtotal-row"><td colspan="2">Total COGS</td><td>RM 3.50</td></tr>
+        <tr><td colspan="2">Selling Price</td><td style="color:var(--orange);font-weight:700">RM 16</td></tr>
+        <tr><td colspan="2">Cost %</td><td style="color:var(--green)">21.9%</td></tr>
+      </table>
+    </div>
+    <div class="recipe">
+      <div class="r-name">Avocado Toast <span>FOD-003</span></div>
+      <table style="border:none"><tr><th>Ingredient</th><th>Qty</th><th>Cost (RM)</th></tr>
+        <tr><td>Sourdough bread (2 slices)</td><td>100g</td><td>1.20</td></tr>
+        <tr><td>Ripe avocado (½)</td><td>75g</td><td>2.50</td></tr>
+        <tr><td>Cherry tomatoes (5)</td><td>40g</td><td>0.40</td></tr>
+        <tr><td>Poached egg (1)</td><td>60g</td><td>0.60</td></tr>
+        <tr><td>Seasoning + micro herbs</td><td>—</td><td>0.40</td></tr>
+        <tr class="subtotal-row"><td colspan="2">Total COGS</td><td>RM 5.10</td></tr>
+        <tr><td colspan="2">Selling Price</td><td style="color:var(--orange);font-weight:700">RM 18</td></tr>
+        <tr><td colspan="2">Cost %</td><td style="color:var(--yellow)">28.3%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3>Beverage Cost Benchmarks</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Category</th><th>Target Cost %</th><th>Maximum Cost %</th><th>Selling Price Range</th></tr>
+    <tr><td>Espresso-based (hot)</td><td style="color:var(--green)">20–24%</td><td>28%</td><td>RM 10–15</td></tr>
+    <tr><td>Espresso-based (iced)</td><td style="color:var(--green)">22–26%</td><td>30%</td><td>RM 12–17</td></tr>
+    <tr><td>Specialty powders (matcha, taro, choco)</td><td style="color:var(--green)">22–26%</td><td>30%</td><td>RM 13–18</td></tr>
+    <tr><td>Frappe / Blended</td><td style="color:var(--yellow)">25–28%</td><td>32%</td><td>RM 14–19</td></tr>
+    <tr><td>Tea / Non-coffee</td><td style="color:var(--green)">15–20%</td><td>25%</td><td>RM 8–12</td></tr>
+    <tr><td>Food items</td><td style="color:var(--yellow)">28–33%</td><td>38%</td><td>RM 10–25</td></tr>
+    <tr><td>Pastries / Cakes</td><td style="color:var(--yellow)">30–35%</td><td>40%</td><td>RM 8–16</td></tr>
+  </table></div>
+
+  <h3>Menu Engineering Matrix</h3>
+  <div class="two-col">
+    <div class="col-box" style="border-color:rgba(48,209,88,0.2)">
+      <h4 style="color:var(--green)">⭐ Stars — High Profit + High Sales</h4>
+      <p>Feature prominently on menu. Train staff to recommend. Never remove. E.g. Signature Latte, Flat White.</p>
+    </div>
+    <div class="col-box" style="border-color:rgba(10,132,255,0.2)">
+      <h4 style="color:var(--blue)">🐄 Cash Cows — Low Profit + High Sales</h4>
+      <p>Bestsellers with thin margins. Reduce portion slightly or renegotiate supplier cost. E.g. black coffee, americano.</p>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="col-box" style="border-color:rgba(255,214,10,0.2)">
+      <h4 style="color:var(--yellow)">❓ Puzzles — High Profit + Low Sales</h4>
+      <p>Good margin but nobody orders. Improve description, train staff to upsell, reposition on menu. Seasonal promotion candidate.</p>
+    </div>
+    <div class="col-box" style="border-color:rgba(255,69,58,0.2)">
+      <h4 style="color:var(--red)">🐕 Dogs — Low Profit + Low Sales</h4>
+      <p>Eliminate or replace within 2 menu review cycles. They confuse customers and drain kitchen complexity.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STAGE 6: SUPPLIER MANAGEMENT -->
+<!-- ============================================================ -->
+<div class="section" id="s6">
+  <div class="sec-head">
+    <div class="sec-num">6</div>
+    <div class="sec-info">
+      <h2>Supplier Management</h2>
+      <p>Build reliable supply chains with backup options for every critical input.</p>
+    </div>
+  </div>
+
+  <h3>Key Supplier Categories</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Category</th><th>Primary Supplier Type</th><th>Order Frequency</th><th>Lead Time</th><th>Min. Order</th><th>Backup Plan</th></tr>
+    <tr><td>Coffee Beans</td><td>Local roaster / specialty importer</td><td>Weekly</td><td>1–3 days</td><td>5kg</td><td>2nd roaster on standby; 2-week buffer stock</td></tr>
+    <tr><td>Fresh Milk</td><td>Dairy distributor</td><td>3× per week</td><td>Next day</td><td>10L</td><td>Supermarket purchase for emergencies</td></tr>
+    <tr><td>Specialty Powders (Matcha, Taro, Choco)</td><td>DRNK / specialty F&amp;B supplier</td><td>Monthly</td><td>1–7 days</td><td>1kg</td><td>Alternative brand prequalified</td></tr>
+    <tr><td>Food Ingredients</td><td>Wet market + wholesale</td><td>3× per week</td><td>Same day</td><td>—</td><td>2nd market contact</td></tr>
+    <tr><td>Takeaway Packaging</td><td>Packaging wholesaler</td><td>Monthly</td><td>3–5 days</td><td>200 pcs</td><td>Lazada/Shopee for emergency restock</td></tr>
+    <tr><td>Syrups &amp; Bases</td><td>Monin / DaVinci / local importer</td><td>Monthly</td><td>3–7 days</td><td>6 bottles</td><td>Order 1 extra bottle as buffer</td></tr>
+  </table></div>
+
+  <h3>Par Level System</h3>
+  <div class="box box-info"><strong>Par Level Formula</strong><br>
+    Par Level = (Daily Usage × Lead Time Days) + Safety Stock (3 days usage)<br><br>
+    <em>Example: Milk usage = 10L/day, lead time = 1 day, safety stock = 30L → Par = (10×1) + 30 = 40L</em>
+  </div>
+
+  <h3>Weekly Ordering Schedule</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Day</th><th>Order What</th><th>Method</th><th>Delivered</th></tr>
+    <tr><td>Monday</td><td>Coffee beans, packaging, dry goods</td><td>WhatsApp / email</td><td>Wednesday</td></tr>
+    <tr><td>Tuesday</td><td>Fresh produce, bread / pastry confirm</td><td>WhatsApp</td><td>Wednesday morning</td></tr>
+    <tr><td>Wednesday</td><td>Milk (twice weekly)</td><td>Standing order</td><td>Thursday morning</td></tr>
+    <tr><td>Thursday</td><td>Stock count &amp; reorder assessment</td><td>POS system report</td><td>Friday</td></tr>
+    <tr><td>Sunday (close)</td><td>Week-end full inventory count</td><td>Manual count sheet</td><td>—</td></tr>
+  </table></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STAGE 7: HIRING & HR -->
+<!-- ============================================================ -->
+<div class="section" id="s7">
+  <div class="sec-head">
+    <div class="sec-num">7</div>
+    <div class="sec-info">
+      <h2>Hiring &amp; HR</h2>
+      <p>Build a team that represents your brand, and keep them performing and motivated.</p>
+    </div>
+  </div>
+
+  <h3>Key Job Descriptions</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Role</th><th>Salary Range (RM/mo)</th><th>Key Responsibilities</th><th>Required Experience</th></tr>
+    <tr><td><strong style="color:var(--orange)">Store Manager</strong></td><td>3,500–5,000</td><td>Full P&amp;L accountability, staff scheduling, supplier liaison, monthly reporting, SOP enforcement</td><td>2+ yrs F&amp;B management</td></tr>
+    <tr><td><strong style="color:var(--orange)">Head Barista</strong></td><td>2,500–3,500</td><td>Coffee quality control, barista training, equipment maintenance, daily bar SOP, recipe development</td><td>2+ yrs specialty coffee</td></tr>
+    <tr><td><strong style="color:var(--text)">Barista</strong></td><td>1,900–2,500</td><td>Espresso preparation, milk texturing, cold drinks, bar cleanliness, inventory counting</td><td>6 months+ barista experience</td></tr>
+    <tr><td><strong style="color:var(--text)">Kitchen Staff</strong></td><td>1,700–2,200</td><td>Food prep, cooking to recipe cards, kitchen cleanliness, portion control, food safety</td><td>Some F&amp;B kitchen experience</td></tr>
+    <tr><td><strong style="color:var(--text)">Cashier / Service</strong></td><td>1,700–2,000</td><td>POS operations, cash handling, order taking, customer service, table clearing</td><td>Customer service experience preferred</td></tr>
+  </table></div>
+
+  <h3>Staff Training Matrix</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Training Module</th><th>Duration</th><th>Cashier</th><th>Barista</th><th>Head Barista</th><th>Kitchen</th><th>Manager</th></tr>
+    <tr><td>Brand &amp; Culture Orientation</td><td>2 hrs</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+    <tr><td>Food Safety &amp; Hygiene</td><td>4 hrs</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+    <tr><td>Halal Awareness</td><td>2 hrs</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+    <tr><td>Customer Service SOP</td><td>4 hrs</td><td>✓</td><td>✓</td><td>✓</td><td>—</td><td>✓</td></tr>
+    <tr><td>POS &amp; Cash Handling</td><td>3 hrs</td><td>✓</td><td>Basic</td><td>Basic</td><td>—</td><td>✓</td></tr>
+    <tr><td>Espresso Preparation SOP</td><td>8 hrs</td><td>—</td><td>✓</td><td>✓</td><td>—</td><td>Awareness</td></tr>
+    <tr><td>Milk Texturing to Latte Art</td><td>8 hrs</td><td>—</td><td>✓</td><td>✓</td><td>—</td><td>—</td></tr>
+    <tr><td>Full Menu Knowledge</td><td>4 hrs</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+    <tr><td>Kitchen SOPs &amp; Recipes</td><td>8 hrs</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>Awareness</td></tr>
+    <tr><td>Opening / Closing SOP</td><td>4 hrs</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+    <tr><td>Equipment Maintenance</td><td>4 hrs</td><td>—</td><td>Basic</td><td>✓</td><td>Basic</td><td>✓</td></tr>
+    <tr><td>P&amp;L &amp; KPI Management</td><td>4 hrs</td><td>—</td><td>—</td><td>Basic</td><td>—</td><td>✓</td></tr>
+  </table></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STAGE 8: SOPs -->
+<!-- ============================================================ -->
+<div class="section" id="s8">
+  <div class="sec-head">
+    <div class="sec-num">8</div>
+    <div class="sec-info">
+      <h2>Standard Operating Procedures</h2>
+      <p>10 core SOPs that every team member must know, follow, and enforce.</p>
+    </div>
+  </div>
+
+  <h3>SOP 01 — Store Opening</h3>
+  <div class="sop">
+    <div class="sop-title">SOP-01 · Store Opening · Time Required: 45 minutes · Responsible: Opening Shift Lead</div>
+    <div class="sop-step"><div class="sop-n">1</div><div>Arrive 45 min before opening. Unlock, disarm alarm, turn on lights.</div></div>
+    <div class="sop-step"><div class="sop-n">2</div><div>Temperature check: inspect fridge/cold room logs. Acceptable range: 0–4°C. Above 5°C → escalate immediately, do not serve perishables.</div></div>
+    <div class="sop-step"><div class="sop-n">3</div><div>Turn on espresso machine. Allow 20 min warm-up. Do NOT pull shots until machine reaches operating temperature.</div></div>
+    <div class="sop-step"><div class="sop-n">4</div><div>Flush groupheads (10 seconds each), backflush with water, check portafilter gaskets for wear.</div></div>
+    <div class="sop-step"><div class="sop-n">5</div><div>Dial in espresso: pull 3 test shots, record dose/yield/time in dial-in log. Adjust grind until within spec (18g in / 36g out / 27–30 seconds).</div></div>
+    <div class="sop-step"><div class="sop-n">6</div><div>Prepare condiment station: syrups, napkins, straws, stirrers, lids — fully stocked and clean.</div></div>
+    <div class="sop-step"><div class="sop-n">7</div><div>Count &amp; verify opening float (RM 300 standard). Sign cash reconciliation form. Place in cash drawer.</div></div>
+    <div class="sop-step"><div class="sop-n">8</div><div>Log in to POS. Confirm menu prices, day, and date. Print zero report.</div></div>
+    <div class="sop-step"><div class="sop-n">9</div><div>Kitchen: turn on exhaust, check gas supply, calibrate oven, prep mise en place per kitchen opening checklist.</div></div>
+    <div class="sop-step"><div class="sop-n">10</div><div>Quick hygiene sweep: wipe counters, mop entrance, straighten furniture, check restrooms.</div></div>
+    <div class="sop-step"><div class="sop-n">11</div><div>Brief team huddle (5 min): day's specials, menu unavailabilities, reservations, daily targets.</div></div>
+    <div class="sop-step"><div class="sop-n">12</div><div>Flip open sign, unlock front door. Store is open.</div></div>
+  </div>
+
+  <h3>SOP 02 — Store Closing</h3>
+  <div class="sop">
+    <div class="sop-title">SOP-02 · Store Closing · Time Required: 60 minutes · Responsible: Closing Shift Lead</div>
+    <div class="sop-step"><div class="sop-n">1</div><div>Last order call: 30 min before closing time. Inform all seated customers politely.</div></div>
+    <div class="sop-step"><div class="sop-n">2</div><div>At closing: flip sign, lock front door, allow remaining customers to finish.</div></div>
+    <div class="sop-step"><div class="sop-n">3</div><div>Espresso machine: backflush with Cafiza (3× chemical, 5× water rinse). Clean steam wands, drip trays, groupheads. Turn off machine last.</div></div>
+    <div class="sop-step"><div class="sop-n">4</div><div>Grinder: purge remaining beans, brush burrs, wipe exterior. Record grind setting in log.</div></div>
+    <div class="sop-step"><div class="sop-n">5</div><div>Bar: wash all jugs, pitchers, cups. Sanitise all surfaces. Clean syrup pumps.</div></div>
+    <div class="sop-step"><div class="sop-n">6</div><div>Wrap and refrigerate all open food with date labels. Discard food past shelf life. Record waste log.</div></div>
+    <div class="sop-step"><div class="sop-n">7</div><div>Cash reconciliation: count drawer → record → shift lead counts independently → both sign → manager verifies.</div></div>
+    <div class="sop-step"><div class="sop-n">8</div><div>Mop all floors, clean restrooms, empty all bins (no bins left overnight). Replace bin liners.</div></div>
+    <div class="sop-step"><div class="sop-n">9</div><div>Check all taps off. Turn off gas at main valve. Turn off kitchen equipment and exhaust.</div></div>
+    <div class="sop-step"><div class="sop-n">10</div><div>Complete closing checklist (sign and date). Turn off lights (leave security light on), arm alarm, lock all doors.</div></div>
+  </div>
+
+  <h3>SOP 03 — Cash Handling</h3>
+  <div class="sop">
+    <div class="sop-title">SOP-03 · Cash Handling · Responsible: Cashier + Shift Lead · Reviewed: Manager</div>
+    <div class="sop-step"><div class="sop-n">1</div><div>Opening float is RM 300. Count and verify by TWO people before shift begins. Both sign the reconciliation form.</div></div>
+    <div class="sop-step"><div class="sop-n">2</div><div>Never leave cash drawer open unattended. Close after every transaction.</div></div>
+    <div class="sop-step"><div class="sop-n">3</div><div>All sales must be rung through POS — no off-system transactions. Discounts require manager PIN.</div></div>
+    <div class="sop-step"><div class="sop-n">4</div><div>Cash drop: when drawer exceeds RM 1,000, remove excess to safe. Document drop slip.</div></div>
+    <div class="sop-step"><div class="sop-n">5</div><div>Closing count: cashier counts → records → shift lead counts independently → both sign → manager verifies.</div></div>
+    <div class="sop-step"><div class="sop-n">6</div><div>Acceptable variance: ±RM 5. Over RM 10: manager investigation required and documented.</div></div>
+    <div class="sop-step"><div class="sop-n">7</div><div>Bank deposit: cash deposited within 24 hours. Deposit slip filed with daily records.</div></div>
+  </div>
+
+  <h3>SOP 04 — Espresso Preparation</h3>
+  <div class="sop">
+    <div class="sop-title">SOP-04 · Espresso Preparation · Standard: 18g in / 36g out / 27–30 sec · Responsible: Barista</div>
+    <div class="sop-step"><div class="sop-n">1</div><div>Purge grouphead: 3-second flush before each shot to clear old water and stabilise temperature.</div></div>
+    <div class="sop-step"><div class="sop-n">2</div><div>Dose: grind 18g (±0.1g) into portafilter. Verify with scale.</div></div>
+    <div class="sop-step"><div class="sop-n">3</div><div>Distribute: use distributor tool or Stockfleth's move to level the bed. No mounding in the centre.</div></div>
+    <div class="sop-step"><div class="sop-n">4</div><div>Tamp: 15–20kg pressure, perfectly level. Wipe portafilter rim clean.</div></div>
+    <div class="sop-step"><div class="sop-n">5</div><div>Lock portafilter and start extraction immediately. Target: 36g out in 27–30 seconds. Finer = slower, coarser = faster.</div></div>
+    <div class="sop-step"><div class="sop-n">6</div><div>Taste every batch (every 2 hours or after grind adjustment). Record in dial-in log.</div></div>
+    <div class="sop-step"><div class="sop-n">7</div><div>Failed shots (sour/bitter/blond): discard, re-pull. Never serve a shot you wouldn't drink yourself.</div></div>
+  </div>
+
+  <h3>SOP 05 — Customer Service</h3>
+  <div class="sop">
+    <div class="sop-title">SOP-05 · Customer Service · The GREET-KNOW-SERVE-THANK Framework</div>
+    <div class="sop-step"><div class="sop-n">G</div><div><strong style="color:var(--text)">Greet within 30 seconds</strong> of customer entering. Eye contact, warm smile, "Selamat datang! / Welcome to [Shop Name]!"</div></div>
+    <div class="sop-step"><div class="sop-n">R</div><div><strong style="color:var(--text)">Read the customer.</strong> Are they regulars? Rushing? Browsing? Adjust your pace and approach accordingly.</div></div>
+    <div class="sop-step"><div class="sop-n">E</div><div><strong style="color:var(--text)">Engage &amp; Recommend.</strong> Know the menu. Offer one genuine recommendation per table.</div></div>
+    <div class="sop-step"><div class="sop-n">E</div><div><strong style="color:var(--text)">Enter the order accurately.</strong> Repeat back order before proceeding. Confirm customisations (milk type, sweetness, temperature, size).</div></div>
+    <div class="sop-step"><div class="sop-n">T</div><div><strong style="color:var(--text)">Time the delivery.</strong> Beverages within 5 min, food within 15 min. Proactively update if delayed.</div></div>
+    <div class="sop-step"><div class="sop-n">K</div><div><strong style="color:var(--text)">Know your regulars.</strong> Remember names, usual orders, preferences. This builds loyalty more than any loyalty card.</div></div>
+    <div class="sop-step"><div class="sop-n">S</div><div><strong style="color:var(--text)">Serve with care.</strong> Place drinks with handle toward customer. Announce the drink clearly.</div></div>
+    <div class="sop-step"><div class="sop-n">T</div><div><strong style="color:var(--text)">Thank every customer by name</strong> when possible upon departure. "Thank you — see you next time!"</div></div>
+  </div>
+
+  <h3>SOP 06 — Complaint Handling (LAST Method)</h3>
+  <div class="sop">
+    <div class="sop-title">SOP-06 · Complaint Handling · Escalation within 5 minutes</div>
+    <div class="sop-step"><div class="sop-n">L</div><div><strong style="color:var(--text)">Listen.</strong> Do not interrupt. Let the customer fully express the issue. Body language: calm, not defensive.</div></div>
+    <div class="sop-step"><div class="sop-n">A</div><div><strong style="color:var(--text)">Acknowledge &amp; Apologise.</strong> "I completely understand your frustration, and I sincerely apologise." — Never say "that's our policy."</div></div>
+    <div class="sop-step"><div class="sop-n">S</div><div><strong style="color:var(--text)">Solve.</strong> For quality issues: offer to remake. For wrong order: correct immediately at no charge. Major complaints: involve manager.</div></div>
+    <div class="sop-step"><div class="sop-n">T</div><div><strong style="color:var(--text)">Thank.</strong> "Thank you for bringing this to our attention — it helps us improve." Log the complaint with date, issue, and action taken.</div></div>
+  </div>
+  <div class="tbl-wrap"><table>
+    <tr><th>Complaint Type</th><th>First Response</th><th>Authority</th><th>Max Resolution Time</th></tr>
+    <tr><td>Wrong drink / food</td><td>Apologise, remake immediately</td><td>Any staff</td><td>5 min</td></tr>
+    <tr><td>Quality issue</td><td>Apologise, offer remake</td><td>Head Barista / Shift Lead</td><td>7 min</td></tr>
+    <tr><td>Foreign object in food/drink</td><td>Remove, escalate to manager, document</td><td><strong style="color:var(--orange)">Manager ONLY</strong></td><td>Immediate</td></tr>
+    <tr><td>Overcharge / billing error</td><td>Verify POS, refund if error confirmed</td><td>Manager</td><td>5 min</td></tr>
+    <tr><td>Online / Google review complaint</td><td>Respond within 24 hours, professionally</td><td>Manager / Owner</td><td>24 hours</td></tr>
+  </table></div>
+
+  <h3>SOP 07 — Inventory SOP</h3>
+  <div class="sop">
+    <div class="sop-title">SOP-07 · Inventory · Weekly Count: Sunday Close · Monthly Full Count: Last Sunday of Month</div>
+    <div class="sop-step"><div class="sop-n">1</div><div>Print Inventory Count Sheet from POS. Assign one counter per section (bar, dry goods, kitchen, packaging).</div></div>
+    <div class="sop-step"><div class="sop-n">2</div><div>Count physically — do NOT estimate. Weigh coffee beans. Count bottles to the unit. Measure bulk items in kg/litre.</div></div>
+    <div class="sop-step"><div class="sop-n">3</div><div>Compare to system quantity. Note variance (±10% = investigate source).</div></div>
+    <div class="sop-step"><div class="sop-n">4</div><div>Update POS inventory to match physical count. Flag any items below par level for immediate reorder.</div></div>
+    <div class="sop-step"><div class="sop-n">5</div><div>Check all date labels. FIFO rotation: new stock goes behind old stock on every shelf.</div></div>
+  </div>
+
+  <h3>SOP 08 — Food Safety SOP</h3>
+  <div class="sop">
+    <div class="sop-title">SOP-08 · Food Safety · MOH Guidelines &amp; HACCP Principles</div>
+    <div class="sop-step"><div class="sop-n">1</div><div>Temperature danger zone: 4°C – 60°C. Food must not remain in this range for more than 2 hours.</div></div>
+    <div class="sop-step"><div class="sop-n">2</div><div>All refrigerated items labelled: product name, open date, expiry date, prepared-by initials.</div></div>
+    <div class="sop-step"><div class="sop-n">3</div><div>Cross-contamination: colour-coded cutting boards (green = veg, red = protein, white = dairy/bread). Never reuse without sanitising.</div></div>
+    <div class="sop-step"><div class="sop-n">4</div><div>Receiving: check delivery temperature, inspect for damage, verify halal certs. Reject any item above threshold or with damaged packaging.</div></div>
+    <div class="sop-step"><div class="sop-n">5</div><div>Food safety incident: isolate affected food, inform manager, document, report to MOH if illness suspected.</div></div>
+  </div>
+
+  <h3>SOP 09 — Cleaning Schedule</h3>
+  <div class="sop">
+    <div class="sop-title">SOP-09 · Cleaning · Monitored by: Shift Lead · Deep Clean: Closing Daily</div>
+    <div class="sop-step"><div class="sop-n">30m</div><div><strong style="color:var(--text)">Every 30 minutes:</strong> Wipe down bar surface, steam wand, drip tray. Clear tables of dirty items.</div></div>
+    <div class="sop-step"><div class="sop-n">1h</div><div><strong style="color:var(--text)">Hourly:</strong> Check and clean restrooms. Restock soap, paper, hand sanitiser.</div></div>
+    <div class="sop-step"><div class="sop-n">D</div><div><strong style="color:var(--text)">Daily (Closing):</strong> Full Cafiza backflush, deep clean grinder, wipe all surfaces with food-safe sanitiser, full floor mop, degrease kitchen hood, clean fridges.</div></div>
+    <div class="sop-step"><div class="sop-n">W</div><div><strong style="color:var(--text)">Weekly:</strong> Deep clean ice machine bin, clean behind all equipment, descale water filtration, wipe all walls and skirting boards.</div></div>
+  </div>
+
+  <h3>SOP 10 — Equipment Maintenance</h3>
+  <div class="sop">
+    <div class="sop-title">SOP-10 · Maintenance · Owner of Record: Manager</div>
+    <div class="sop-step"><div class="sop-n">D</div><div><strong style="color:var(--text)">Daily:</strong> Backflush espresso machine (Cafiza), clean grinder burrs brush, wipe machine exterior, check water filtration flow rate, inspect gaskets for wear.</div></div>
+    <div class="sop-step"><div class="sop-n">W</div><div><strong style="color:var(--text)">Weekly:</strong> Deep clean ice machine bin, check refrigerator door seals, inspect electrical cords, test BOMBA smoke alarms.</div></div>
+    <div class="sop-step"><div class="sop-n">M</div><div><strong style="color:var(--text)">Monthly:</strong> Replace water filtration cartridge (if due), professional machine servicing check, fridge coil cleaning.</div></div>
+    <div class="sop-step"><div class="sop-n">Q</div><div><strong style="color:var(--text)">Quarterly:</strong> Full espresso machine service by certified technician, HVAC / air-con servicing, fire extinguisher inspection.</div></div>
+    <div class="sop-step"><div class="sop-n">!</div><div><strong style="color:var(--red)">Breakdown Protocol:</strong> Report to manager → contact equipment supplier → document in maintenance log → activate backup plan → follow up until resolved.</div></div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STAGE 9: DAILY OPERATIONS -->
+<!-- ============================================================ -->
+<div class="section" id="s9">
+  <div class="sec-head">
+    <div class="sec-num">9</div>
+    <div class="sec-info">
+      <h2>Daily Operations</h2>
+      <p>Rhythms, cadences, and management routines that keep the shop running smoothly every day.</p>
+    </div>
+  </div>
+
+  <h3>Daily Operations Timeline</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Time</th><th>Activity</th><th>Responsible</th></tr>
+    <tr><td style="color:var(--orange)">T−45 min</td><td>Opening team arrives, SOP 01 begins</td><td>Opening lead + kitchen</td></tr>
+    <tr><td style="color:var(--orange)">T−15 min</td><td>Dial-in complete, float counted, team briefed</td><td>All opening staff</td></tr>
+    <tr><td style="color:var(--orange)">T+0 (open)</td><td>Store opens to public</td><td>All</td></tr>
+    <tr><td>Mid-morning</td><td>Inventory check: milk, coffee beans, key ingredients</td><td>Head Barista</td></tr>
+    <tr><td>14:00</td><td>Mid-shift team briefing. Post-lunch review, identify any issues</td><td>Shift Lead</td></tr>
+    <tr><td>15:00</td><td>Shift change: hand-over briefing, stock level update, issues noted</td><td>Outgoing + Incoming lead</td></tr>
+    <tr><td>Close−30 min</td><td>Last order call, preparation to close begins</td><td>Closing lead</td></tr>
+    <tr><td style="color:var(--orange)">Close+60 min</td><td>Full closing SOP complete, cash reconciled, store secured</td><td>Closing team</td></tr>
+  </table></div>
+
+  <h3>Weekly Operations Rhythm</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Day</th><th>Key Activity</th><th>Who</th></tr>
+    <tr><td>Monday</td><td>Review prior week sales &amp; KPIs. Order coffee beans &amp; dry goods. Post staff schedule for following week.</td><td>Manager</td></tr>
+    <tr><td>Tuesday</td><td>Staff 1:1 check-ins (rotating). Menu review and any adjustments.</td><td>Manager</td></tr>
+    <tr><td>Wednesday</td><td>Mid-week stock check. Re-order if below par level.</td><td>Head Barista</td></tr>
+    <tr><td>Thursday</td><td>Review Google reviews. Respond to all. Social media content creation for upcoming week.</td><td>Manager / Owner</td></tr>
+    <tr><td>Friday</td><td>Payroll preparation. Cash flow review. Bank deposit reconciliation.</td><td>Owner / Manager</td></tr>
+    <tr><td>Sunday (Close)</td><td>Full stock count. Deep clean. Waste log review. Team feedback collection.</td><td>All staff</td></tr>
+  </table></div>
+
+  <h3>Monthly Operations Rhythm</h3>
+  <ul class="cklist">
+    <li>Month-end P&amp;L review with owner: revenue vs. target, cost %s vs. benchmark</li>
+    <li>Full inventory variance report: investigate any item with &gt;5% variance</li>
+    <li>Supplier performance review: delivery issues, quality complaints, price changes</li>
+    <li>Staff performance appraisals (quarterly formal, monthly informal check-in)</li>
+    <li>Google review audit: total rating, review themes, response rate</li>
+    <li>Menu review: sales mix report from POS, identify stars vs. dogs</li>
+    <li>Statutory obligations: EPF, SOCSO, EIS, PCB submissions (by 15th of following month)</li>
+    <li>License renewals: check renewal dates for all operating licenses</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- STAGE 10: KPIs -->
+<!-- ============================================================ -->
+<div class="section" id="s10">
+  <div class="sec-head">
+    <div class="sec-num">10</div>
+    <div class="sec-info">
+      <h2>Key Performance Indicators</h2>
+      <p>Measurable targets that tell you exactly how well the business is performing.</p>
+    </div>
+  </div>
+
+  <h3>Sales &amp; Revenue KPIs</h3>
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="k-lbl">Daily Revenue Target</div><div class="k-val">RM 2,500</div><div class="k-frq">Tracked Daily</div><div class="k-dir">↑ Higher is better</div></div>
+    <div class="kpi-card"><div class="k-lbl">Average Transaction Value</div><div class="k-val">RM 18+</div><div class="k-frq">Tracked Daily</div><div class="k-dir">↑ Grow via upselling</div></div>
+    <div class="kpi-card"><div class="k-lbl">Monthly Revenue</div><div class="k-val">RM 60K</div><div class="k-frq">Monthly</div><div class="k-dir">↑ Month 3 target</div></div>
+    <div class="kpi-card"><div class="k-lbl">Revenue per Labour Hour</div><div class="k-val">RM 80+</div><div class="k-frq">Weekly</div><div class="k-dir">↑ Efficiency measure</div></div>
+  </div>
+
+  <h3>Cost Control KPIs</h3>
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="k-lbl">Beverage Cost %</div><div class="k-val">&lt;28%</div><div class="k-frq">Weekly</div><div class="k-dir">↓ Lower is better</div></div>
+    <div class="kpi-card"><div class="k-lbl">Food Cost %</div><div class="k-val">&lt;33%</div><div class="k-frq">Weekly</div><div class="k-dir">↓ Lower is better</div></div>
+    <div class="kpi-card"><div class="k-lbl">Labour Cost %</div><div class="k-val">&lt;28%</div><div class="k-frq">Monthly</div><div class="k-dir">↓ Lower is better</div></div>
+    <div class="kpi-card"><div class="k-lbl">Gross Profit %</div><div class="k-val">&gt;65%</div><div class="k-frq">Monthly</div><div class="k-dir">↑ Higher is better</div></div>
+  </div>
+
+  <h3>Customer Experience KPIs</h3>
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="k-lbl">Google Rating</div><div class="k-val">4.5+</div><div class="k-frq">Weekly</div><div class="k-dir">↑ Aim for 4.7+</div></div>
+    <div class="kpi-card"><div class="k-lbl">Customer Satisfaction</div><div class="k-val">4.2+/5</div><div class="k-frq">Monthly survey</div><div class="k-dir">↑ In-house survey</div></div>
+    <div class="kpi-card"><div class="k-lbl">Repeat Customer Rate</div><div class="k-val">&gt;35%</div><div class="k-frq">Monthly</div><div class="k-dir">↑ Track via loyalty card</div></div>
+    <div class="kpi-card"><div class="k-lbl">Speed of Service</div><div class="k-val">&lt;5 min</div><div class="k-frq">Weekly spot check</div><div class="k-dir">↓ Espresso drinks</div></div>
+  </div>
+
+  <h3>Operational KPIs</h3>
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="k-lbl">Staff Attendance Rate</div><div class="k-val">&gt;95%</div><div class="k-frq">Monthly</div><div class="k-dir">↑ No-shows destroy ops</div></div>
+    <div class="kpi-card"><div class="k-lbl">Inventory Variance</div><div class="k-val">&lt;3%</div><div class="k-frq">Weekly count</div><div class="k-dir">↓ Below 5% = ok</div></div>
+    <div class="kpi-card"><div class="k-lbl">Waste %</div><div class="k-val">&lt;5%</div><div class="k-frq">Daily log</div><div class="k-dir">↓ Of purchased goods</div></div>
+    <div class="kpi-card"><div class="k-lbl">Google Reviews / Month</div><div class="k-val">20+</div><div class="k-frq">Monthly</div><div class="k-dir">↑ Prompt customers</div></div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STAGE 11: MARKETING -->
+<!-- ============================================================ -->
+<div class="section" id="s11">
+  <div class="sec-head">
+    <div class="sec-num">11</div>
+    <div class="sec-info">
+      <h2>Marketing</h2>
+      <p>Build buzz before you open, convert during soft opening, and sustain momentum for 90 days and beyond.</p>
+    </div>
+  </div>
+
+  <h3>Pre-Launch Campaign (60–0 Days Before Opening)</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Phase</th><th>Timeline</th><th>Activity</th><th>Budget (RM)</th></tr>
+    <tr><td>Identity Build</td><td>T−60 to T−45</td><td>Logo, brand kit, shop name, packaging design finalised. Instagram &amp; TikTok accounts created. Google Business Profile set up.</td><td>3,000–8,000</td></tr>
+    <tr><td>Anticipation</td><td>T−45 to T−30</td><td>"Coming Soon" posts: behind-the-scenes renovation content. Introduce team on social. Build WhatsApp list via "first to know" form.</td><td>500</td></tr>
+    <tr><td>Teaser</td><td>T−30 to T−14</td><td>Menu teaser posts. Beverage photography session. 3 micro-influencer partnerships (5K–30K followers) for opening preview.</td><td>2,000–5,000</td></tr>
+    <tr><td>Countdown</td><td>T−14 to T−3</td><td>Daily countdown stories. "Win a free coffee for a year" giveaway. Drop soft-opening date/time to all channels.</td><td>500</td></tr>
+  </table></div>
+
+  <h3>Monthly Social Media Content Calendar</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Week</th><th>Monday</th><th>Wednesday</th><th>Friday</th><th>Weekend</th></tr>
+    <tr><td>Week 1</td><td>Product Feature (star drink)</td><td>Behind-the-scenes (barista at work)</td><td>Customer feature / UGC</td><td>Weekend special / limited item</td></tr>
+    <tr><td>Week 2</td><td>Staff spotlight</td><td>Coffee education post (origin, process)</td><td>Customer review highlight</td><td>Saturday event / live / workshop</td></tr>
+    <tr><td>Week 3</td><td>New menu item teaser</td><td>Recipe share (home brew tips)</td><td>Weekly promo announcement</td><td>Sunday mood content (ambience shots)</td></tr>
+    <tr><td>Week 4</td><td>Barista's monthly favourite pick</td><td>Sustainability / values post</td><td>Month-end giveaway</td><td>Community post (local partnership)</td></tr>
+  </table></div>
+  <div class="box box-info"><strong>📱 Content Format Priority (Malaysia Market)</strong> TikTok videos (15–30 sec) &gt; Instagram Reels &gt; Instagram Stories &gt; Instagram Feed. WhatsApp Broadcast to loyalty customers. Facebook for older demographics &amp; local community groups.</div>
+
+  <h3>Local Partnerships</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Partner Type</th><th>Collaboration Idea</th><th>Benefit</th></tr>
+    <tr><td>Office buildings within 500m</td><td>Corporate coffee subscription / monthly delivery</td><td>Stable B2B revenue</td></tr>
+    <tr><td>Local gym / fitness studio</td><td>Cross-promote: post-workout protein coffee deal</td><td>New customer segment</td></tr>
+    <tr><td>Co-working spaces</td><td>Offer exclusive discount card to members</td><td>Recurring weekday traffic</td></tr>
+    <tr><td>Grab / Foodpanda</td><td>Delivery partnership for takeaway revenue</td><td>+15–25% additional revenue</td></tr>
+  </table></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STAGE 12: FINANCIAL MANAGEMENT -->
+<!-- ============================================================ -->
+<div class="section" id="s12">
+  <div class="sec-head">
+    <div class="sec-num">12</div>
+    <div class="sec-info">
+      <h2>Financial Management</h2>
+      <p>Track every ringgit in and out to keep the business profitable and sustainable.</p>
+    </div>
+  </div>
+
+  <h3>Monthly P&amp;L Structure</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Category</th><th>Budget (RM)</th><th>Actual (RM)</th><th>Variance</th><th>% of Revenue</th></tr>
+    <tr><td colspan="5" style="background:rgba(255,107,0,0.08);color:var(--orange);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase">REVENUE</td></tr>
+    <tr><td>&nbsp;&nbsp;Beverage Sales</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>&nbsp;&nbsp;Food Sales</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>&nbsp;&nbsp;Other / Delivery</td><td></td><td></td><td></td><td></td></tr>
+    <tr class="subtotal-row"><td>Total Revenue</td><td></td><td></td><td></td><td>100%</td></tr>
+    <tr><td colspan="5" style="background:rgba(255,107,0,0.08);color:var(--orange);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase">COST OF GOODS SOLD</td></tr>
+    <tr><td>&nbsp;&nbsp;Beverage Cost</td><td></td><td></td><td></td><td>Target: 27%</td></tr>
+    <tr><td>&nbsp;&nbsp;Food Cost</td><td></td><td></td><td></td><td>Target: 32%</td></tr>
+    <tr class="subtotal-row"><td>Gross Profit</td><td></td><td></td><td></td><td>Target: &gt;65%</td></tr>
+    <tr><td colspan="5" style="background:rgba(255,107,0,0.08);color:var(--orange);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase">OPERATING EXPENSES</td></tr>
+    <tr><td>&nbsp;&nbsp;Staff Salaries &amp; Benefits</td><td></td><td></td><td></td><td>Target: 28%</td></tr>
+    <tr><td>&nbsp;&nbsp;Rent</td><td></td><td></td><td></td><td>Target: 10%</td></tr>
+    <tr><td>&nbsp;&nbsp;Utilities (Electric, Water)</td><td></td><td></td><td></td><td>Target: 4%</td></tr>
+    <tr><td>&nbsp;&nbsp;Marketing</td><td></td><td></td><td></td><td>Target: 3%</td></tr>
+    <tr><td>&nbsp;&nbsp;Maintenance &amp; Repairs</td><td></td><td></td><td></td><td>Target: 1.5%</td></tr>
+    <tr><td>&nbsp;&nbsp;Loan Repayment</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>&nbsp;&nbsp;Other (licenses, supplies, etc.)</td><td></td><td></td><td></td><td></td></tr>
+    <tr class="total-row"><td>NET PROFIT / (LOSS)</td><td></td><td></td><td></td><td>Target: &gt;15%</td></tr>
+  </table></div>
+
+  <h3>Cash Flow Management</h3>
+  <div class="box box-alert"><strong>⚠️ Cash Flow Rule #1</strong> Revenue in the bank ≠ profit. Track actual cash — not just sales. Many profitable businesses fail because of cash flow timing.</div>
+  <ul class="cklist">
+    <li>Maintain minimum RM 20,000 cash buffer at all times (3 weeks operating cost)</li>
+    <li>Collect daily cash sales — deposit within 24 hours. No "slush fund" in the drawer</li>
+    <li>Track all payables: when rent, salaries, and supplier invoices are due — calendar them</li>
+    <li>Set up a separate bank account for: (1) Operations, (2) Tax reserve, (3) Maintenance reserve</li>
+    <li>Monthly: move 5% of gross revenue to maintenance reserve, 10% to tax reserve</li>
+    <li>Never mix personal and business finances — ever</li>
+    <li>Review accounts monthly with your accountant</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- STAGE 13: RISK MANAGEMENT -->
+<!-- ============================================================ -->
+<div class="section" id="s13">
+  <div class="sec-head">
+    <div class="sec-num">13</div>
+    <div class="sec-info">
+      <h2>Risk Management</h2>
+      <p>Anticipate problems before they happen and have a plan ready when they do.</p>
+    </div>
+  </div>
+
+  <h3>Risk Register</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Prevention</th><th>Response Plan</th></tr>
+    <tr>
+      <td><strong style="color:var(--text)">Espresso Machine Breakdown</strong></td>
+      <td><span class="tag tag-o">Medium</span></td>
+      <td><span class="tag tag-r">Very High</span></td>
+      <td>Daily cleaning, quarterly service, service contract</td>
+      <td>Call supplier immediately. Activate backup menu. Consider mobile machine rental. Inform customers.</td>
+    </tr>
+    <tr>
+      <td><strong style="color:var(--text)">Key Staff No-Show / Resignation</strong></td>
+      <td><span class="tag tag-o">Medium</span></td>
+      <td><span class="tag tag-o">High</span></td>
+      <td>Cross-train all staff. Maintain part-timer contact list. Competitive pay and culture.</td>
+      <td>Activate part-timer on-call list. Manager / Owner covers if needed. Initiate replacement hire within 48 hrs.</td>
+    </tr>
+    <tr>
+      <td><strong style="color:var(--text)">Customer Food Safety Complaint</strong></td>
+      <td><span class="tag tag-g">Low</span></td>
+      <td><span class="tag tag-r">Very High</span></td>
+      <td>Strict HACCP compliance, daily temp logs, food handler training, pest control contract</td>
+      <td>Isolate product. Remove from service. LAST method. If illness suspected: notify MOH, preserve evidence.</td>
+    </tr>
+    <tr>
+      <td><strong style="color:var(--text)">Power Failure</strong></td>
+      <td><span class="tag tag-o">Medium</span></td>
+      <td><span class="tag tag-o">High</span></td>
+      <td>Keep TNB emergency number. UPS for POS. Know main switch location.</td>
+      <td>Switch to manual order-taking. Check cold storage (max 4 hrs before food risk). Contact TNB. Communicate on social media.</td>
+    </tr>
+    <tr>
+      <td><strong style="color:var(--text)">Low Sales / Slow Period</strong></td>
+      <td><span class="tag tag-o">Medium</span></td>
+      <td><span class="tag tag-o">High</span></td>
+      <td>Strong marketing pipeline, loyal customer base, delivery channel, seasonal promotions</td>
+      <td>Analyse root cause. Activate promotion campaign. Reduce labour hours proportionally. Explore B2B / catering revenue.</td>
+    </tr>
+    <tr>
+      <td><strong style="color:var(--text)">Negative Social Media / Reviews</strong></td>
+      <td><span class="tag tag-o">Medium</span></td>
+      <td><span class="tag tag-o">Medium</span></td>
+      <td>Excellent service culture, proactive review solicitation, Google monitoring alerts</td>
+      <td>Respond within 24 hrs, professionally and empathetically. Take conversation offline. Investigate internally. Never argue publicly.</td>
+    </tr>
+  </table></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STAGE 14: FIRST 90 DAYS -->
+<!-- ============================================================ -->
+<div class="section" id="s14">
+  <div class="sec-head">
+    <div class="sec-num">14</div>
+    <div class="sec-info">
+      <h2>First 90 Days — Week by Week</h2>
+      <p>A detailed action plan for the critical first 12 weeks of operation.</p>
+    </div>
+  </div>
+
+  <h3>Phase 1 — Launch &amp; Stabilise (Weeks 1–4)</h3>
+  <div class="week"><div class="wk-ttl">Week 1 — Soft Opening</div><strong style="color:var(--text)">Operations:</strong> Implement all SOPs. Track every issue. Speed will be slow; that's normal.<br><strong style="color:var(--text)">Marketing:</strong> Open to friends &amp; family + 3 influencers. Share behind-the-scenes content.<br><strong style="color:var(--text)">Finance:</strong> Daily sales tracking begins. Establish baseline ATV and cover count.<br><strong style="color:var(--text)">Feedback:</strong> Paper feedback forms for every table. Read ALL feedback same night.</div>
+  <div class="week"><div class="wk-ttl">Week 2 — Fix Issues</div><strong style="color:var(--text)">Operations:</strong> Address Top 5 issues from Week 1 feedback. Speed improvement target: all drinks under 7 min.<br><strong style="color:var(--text)">Marketing:</strong> Announce soft opening officially on social. Start daily posting routine.<br><strong style="color:var(--text)">Finance:</strong> First COGS calculation. Are we on track for 30% or under?</div>
+  <div class="week"><div class="wk-ttl">Week 3 — Grand Opening</div><strong style="color:var(--text)">Operations:</strong> Grand opening event. Full team present. Emergency contact list ready.<br><strong style="color:var(--text)">Marketing:</strong> Influencer posts go live, giveaway activates, first Google Business post.<br><strong style="color:var(--text)">Finance:</strong> Set up formal daily sales report. Owner reviews every day end of Week 3.</div>
+  <div class="week"><div class="wk-ttl">Week 4 — Operational Rhythm</div><strong style="color:var(--text)">Operations:</strong> First full stock count. Compare to POS. Identify waste sources.<br><strong style="color:var(--text)">Finance:</strong> First week of payroll complete. Statutory submissions (EPF, SOCSO) for Month 1.<br><strong style="color:var(--text)">KPIs:</strong> Review ATV, daily covers, Google rating, beverage cost %. Set targets for Month 2.</div>
+
+  <h3>Phase 2 — Grow &amp; Optimise (Weeks 5–8)</h3>
+  <div class="week"><div class="wk-ttl">Week 5 — Menu Optimisation</div>Run first menu engineering analysis. Identify dogs — consider removing. Promote stars more aggressively. End of Month 1 P&amp;L — review actual vs. projected.</div>
+  <div class="week"><div class="wk-ttl">Week 6 — Delivery Platform Launch</div>Register on Grab Food / Foodpanda. Design delivery-optimised packaging. Train team on delivery order handling. Target: 20 Google reviews this month.</div>
+  <div class="week"><div class="wk-ttl">Week 7 — Community Event</div>First local partnership activation. Host a Latte Art Class or Coffee Tasting evening — 15–20 seats at RM 60/pax. Excellent content + bonding + revenue.</div>
+  <div class="week"><div class="wk-ttl">Week 8 — 2-Month Review</div>Full operational audit: SOPs followed? Equipment serviced? End of Month 2 P&amp;L — are we profitable? If yes: celebrate and plan reinvestment. If no: analyse and cut costs.</div>
+
+  <h3>Phase 3 — Systemise &amp; Scale (Weeks 9–12)</h3>
+  <div class="week"><div class="wk-ttl">Week 9 — Systems Tightening</div>Review all SOPs — update based on 2 months of learning. Plan seasonal menu. Identify top performer for title upgrade and added responsibility.</div>
+  <div class="week"><div class="wk-ttl">Week 10 — Loyalty &amp; Retention</div>Analyse loyalty card data: who are your top 20% customers? VIP customer appreciation event — exclusive preview of new seasonal menu.</div>
+  <div class="week"><div class="wk-ttl">Week 11 — B2B Growth</div>Identify 5 corporate clients within 1km. Approach with corporate coffee package proposal. Tax review with accountant: SST registration due?</div>
+  <div class="week"><div class="wk-ttl">Week 12 — 90-Day Strategic Review</div>Full 90-day P&amp;L vs. projections. All KPIs vs. Month 1 baseline. Formal 3-month staff performance reviews. Owner strategic review: next milestones — second outlet? renovation upgrade? new equipment?</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DAILY CHECKLISTS -->
+<!-- ============================================================ -->
+<div class="section" id="checklists">
+  <div class="sec-head">
+    <div class="sec-num" style="font-size:22px">✓</div>
+    <div class="sec-info">
+      <h2>Daily Checklists</h2>
+      <p>Print and use these every single day. Consistent execution separates great shops from average ones.</p>
+    </div>
+  </div>
+
+  <h3>Daily Opening Checklist</h3>
+  <p style="color:var(--text3);font-size:12px">Date: _____________ &nbsp;·&nbsp; Shift Lead: _____________ &nbsp;·&nbsp; Time Complete: _____________</p>
+  <div class="two-col">
+    <div>
+      <h4>Bar &amp; Coffee</h4>
+      <ul class="cklist">
+        <li>Espresso machine powered on — warm-up complete</li>
+        <li>Groupheads flushed (3 seconds each)</li>
+        <li>Dial-in complete: dose __ / yield __ / time __sec</li>
+        <li>Grinder calibrated, hopper filled (min. 250g)</li>
+        <li>Milk in bar fridge — level adequate</li>
+        <li>Syrups fully stocked and pumps clean</li>
+        <li>All cups restocked (ceramic and paper)</li>
+        <li>Blender clean and ready</li>
+        <li>Ice bin filled and clean</li>
+        <li>Water filtration running (check flow)</li>
+        <li>Steam wands purged and wiped</li>
+        <li>Bar surface clean and sanitised</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Front of House &amp; Cash</h4>
+      <ul class="cklist">
+        <li>Opening float counted (RM 300) — verified by 2 staff</li>
+        <li>POS system logged in, Z-report printed</li>
+        <li>Floor swept and mopped</li>
+        <li>Tables and chairs clean and aligned</li>
+        <li>Condiment station stocked (napkins, sugar, stirrers)</li>
+        <li>Menu board accurate (any 86'd items marked)</li>
+        <li>Restrooms cleaned, stocked, and smelling fresh</li>
+        <li>Air conditioning on — temperature 22–24°C</li>
+        <li>Music playing at correct volume (ambient)</li>
+        <li>Fridge temperatures checked and logged</li>
+        <li>Team briefed — daily targets &amp; specials shared</li>
+        <li>Open sign visible, door unlocked at opening time</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Daily Closing Checklist</h3>
+  <p style="color:var(--text3);font-size:12px">Date: _____________ &nbsp;·&nbsp; Shift Lead: _____________ &nbsp;·&nbsp; Time Complete: _____________</p>
+  <div class="two-col">
+    <div>
+      <h4>Bar &amp; Kitchen</h4>
+      <ul class="cklist">
+        <li>Espresso machine: Cafiza backflush complete (3×)</li>
+        <li>Steam wands cleaned inside and out</li>
+        <li>Drip tray removed, cleaned, and sanitised</li>
+        <li>Grinder purged and brushed</li>
+        <li>All bar surfaces wiped and sanitised</li>
+        <li>Blenders washed, rinsed, and inverted to dry</li>
+        <li>Milk jugs washed and stored</li>
+        <li>Syrup pump tops cleaned</li>
+        <li>All open food wrapped, dated, and refrigerated</li>
+        <li>Expired items discarded and waste logged</li>
+        <li>Kitchen surfaces degreased and sanitised</li>
+        <li>Gas supply off at main valve</li>
+        <li>Exhaust fan off</li>
+      </ul>
+    </div>
+    <div>
+      <h4>FOH &amp; Closing Admin</h4>
+      <ul class="cklist">
+        <li>Cash drawer counted (both staff sign)</li>
+        <li>POS Z-report printed and filed</li>
+        <li>Cash variance reconciled and noted</li>
+        <li>Bank deposit bag prepared</li>
+        <li>All tables cleared, wiped, and chairs up</li>
+        <li>Full floor mopped</li>
+        <li>Bins emptied — fresh liners installed</li>
+        <li>Restrooms cleaned and checked</li>
+        <li>Air conditioning off</li>
+        <li>All taps confirmed off</li>
+        <li>Fridge/cold room doors confirmed shut</li>
+        <li>Daily closing sheet signed by shift lead</li>
+        <li>Alarm armed — all doors locked</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="weekly">
+  <h3>Weekly Manager Checklist</h3>
+  <p style="color:var(--text3);font-size:12px">Week of: _____________ &nbsp;·&nbsp; Manager: _____________ &nbsp;·&nbsp; Completed: _____________</p>
+  <ul class="cklist">
+    <li>Review prior week's daily sales reports — are we on track vs. target?</li>
+    <li>Calculate beverage cost % and food cost % for the week</li>
+    <li>Review and respond to all Google reviews (aim for 100% response rate)</li>
+    <li>Review waste log — any trends? Address root cause</li>
+    <li>Check inventory levels — any items below par? Place orders</li>
+    <li>Review staff attendance and punctuality — any patterns?</li>
+    <li>Post following week's staff schedule by Friday</li>
+    <li>Conduct 1–2 informal staff check-ins (how are they doing?)</li>
+    <li>Review all customer complaint records — follow up if needed</li>
+    <li>Verify all opening and closing checklists were signed and filed</li>
+    <li>Check equipment maintenance log — anything due?</li>
+    <li>Review social media posts — what performed well? Plan next week</li>
+    <li>Submit any reimbursement requests to owner</li>
+  </ul>
+
+  <h3>Monthly Owner Checklist</h3>
+  <p style="color:var(--text3);font-size:12px">Month: _____________ &nbsp;·&nbsp; Owner: _____________ &nbsp;·&nbsp; Reviewed with Manager: _____________</p>
+  <ul class="cklist">
+    <li>Review full P&amp;L vs. budget — line by line</li>
+    <li>Review all KPIs — which are on track? Which need attention?</li>
+    <li>Verify all statutory payments made (EPF, SOCSO, EIS, PCB, SST if applicable)</li>
+    <li>Review bank statement vs. cash records</li>
+    <li>Approve next month's budget and any major expenditures</li>
+    <li>Review supplier invoices — any price increases? Negotiate if needed</li>
+    <li>Review Google rating trend — is it growing or declining?</li>
+    <li>Check license renewal dates — any expiring soon?</li>
+    <li>Review menu performance — any items to add, remove, or adjust?</li>
+    <li>Meet with accountant (quarterly at minimum)</li>
+    <li>Update financial projections based on actual performance</li>
+    <li>Strategic review: are we on track for the year-1 goals?</li>
+  </ul>
+</div>
+
+<!-- INVENTORY -->
+<div class="section" id="inventory">
+  <h3>Weekly Stock Count Sheet</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Item</th><th>Unit</th><th>Par Level</th><th>System Qty</th><th>Actual Count</th><th>Variance</th><th>Reorder?</th><th>Counted By</th></tr>
+    <tr><td colspan="8" style="background:rgba(255,107,0,0.08);color:var(--orange);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase">☕ COFFEE</td></tr>
+    <tr><td>Espresso Blend (House)</td><td>kg</td><td>5kg</td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr><td>Single Origin (Filter)</td><td>kg</td><td>2kg</td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr><td colspan="8" style="background:rgba(255,107,0,0.08);color:var(--orange);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase">🥛 DAIRY &amp; MILK ALTERNATIVES</td></tr>
+    <tr><td>Fresh Full Cream Milk</td><td>Litre</td><td>40L</td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr><td>Oat Milk</td><td>Litre</td><td>10L</td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr><td>Soy Milk</td><td>Litre</td><td>5L</td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr><td colspan="8" style="background:rgba(255,107,0,0.08);color:var(--orange);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase">🍵 POWDERS &amp; BASES</td></tr>
+    <tr><td>Matcha Powder (ceremonial)</td><td>kg</td><td>0.5kg</td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr><td>Taro Powder</td><td>kg</td><td>0.5kg</td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr><td>Chocolate Powder</td><td>kg</td><td>1kg</td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr><td colspan="8" style="background:rgba(255,107,0,0.08);color:var(--orange);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase">📦 PACKAGING</td></tr>
+    <tr><td>Paper Cup 8oz</td><td>pcs</td><td>200</td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr><td>Paper Cup 12oz</td><td>pcs</td><td>300</td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr><td>Paper Cup 16oz</td><td>pcs</td><td>200</td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr><td>Flat Lids</td><td>pcs</td><td>300</td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr><td>Straws (biodegradable)</td><td>pcs</td><td>500</td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr class="subtotal-row"><td colspan="6">Count Verified By (Manager):</td><td colspan="2">Date: ___________</td></tr>
+  </table></div>
+
+  <h3>Weekly Order Form</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Item</th><th>Supplier</th><th>Unit Price (RM)</th><th>Qty to Order</th><th>Total (RM)</th><th>Ordered By</th><th>Expected Delivery</th><th>Received ✓</th></tr>
+    <tr><td style="height:34px"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td style="height:34px"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td style="height:34px"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td style="height:34px"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr class="subtotal-row"><td colspan="4">Total Order Value</td><td>RM ________</td><td colspan="3">Approved by: ____________</td></tr>
+  </table></div>
+</div>
+
+<!-- LOGS -->
+<div class="section" id="logs">
+  <h3>Temperature Log (Daily)</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Equipment</th><th>Target Temp</th><th>7am Reading</th><th>1pm Reading</th><th>Close Reading</th><th>Action Taken</th><th>Initials</th></tr>
+    <tr><td>Bar Fridge (under counter)</td><td>0–4°C</td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>Showcase Fridge (cakes)</td><td>0–4°C</td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>Cold Room / Walk-in</td><td>0–4°C</td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>Hot Food Holding</td><td>60°C+</td><td>N/A</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>Milk Steaming Temp (spot)</td><td>60–65°C</td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table></div>
+
+  <h3>Daily Waste Log</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Date</th><th>Item Wasted</th><th>Qty / Weight</th><th>Cost Est. (RM)</th><th>Reason</th><th>Preventable?</th><th>Staff</th></tr>
+    <tr><td></td><td></td><td></td><td></td><td>Expired / Overproduced / Remake / Dropped</td><td>Y / N</td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td>Y / N</td><td></td></tr>
+    <tr class="subtotal-row"><td colspan="3">Weekly Waste Total</td><td>RM _______</td><td colspan="3">% of Revenue: _______%</td></tr>
+  </table></div>
+</div>
+
+<!-- FINANCE DOCS -->
+<div class="section" id="finance-docs">
+  <h3>Cash Reconciliation Sheet</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th colspan="2">Daily Cash Reconciliation</th><th colspan="2">Date: _____________</th></tr>
+    <tr><td>Opening Float</td><td>RM 300.00</td><td>POS Cash Sales Total</td><td>RM __________</td></tr>
+    <tr><td>+ Cash Sales Received</td><td>RM __________</td><td>+ Opening Float</td><td>RM 300.00</td></tr>
+    <tr><td>− Cash Drops to Safe</td><td>RM __________</td><td>Expected Cash in Drawer</td><td>RM __________</td></tr>
+    <tr><td>= Expected in Drawer</td><td>RM __________</td><td>Actual Cash Counted</td><td>RM __________</td></tr>
+    <tr class="subtotal-row"><td>Actual Cash Count</td><td>RM __________</td><td>Variance (Over/Short)</td><td>RM __________</td></tr>
+    <tr><td>Card / QR Revenue</td><td>RM __________</td><td>Cash Counted By</td><td></td></tr>
+    <tr><td>Delivery Platform Revenue</td><td>RM __________</td><td>Verified By (Manager)</td><td></td></tr>
+    <tr class="total-row"><td>Total Revenue (All channels)</td><td>RM __________</td><td>Time:</td><td></td></tr>
+  </table></div>
+
+  <h3>Manager Dashboard — Weekly Snapshot</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>KPI</th><th>This Week</th><th>Last Week</th><th>Target</th><th>Status</th></tr>
+    <tr><td>Total Revenue</td><td>RM</td><td>RM</td><td>RM 17,500</td><td></td></tr>
+    <tr><td>Average Transaction Value</td><td>RM</td><td>RM</td><td>RM 18+</td><td></td></tr>
+    <tr><td>Total Covers (customers)</td><td></td><td></td><td>700+</td><td></td></tr>
+    <tr><td>Beverage Cost %</td><td>%</td><td>%</td><td>&lt;28%</td><td></td></tr>
+    <tr><td>Food Cost %</td><td>%</td><td>%</td><td>&lt;33%</td><td></td></tr>
+    <tr><td>Google Rating (current)</td><td></td><td></td><td>4.5+</td><td></td></tr>
+    <tr><td>New Google Reviews</td><td></td><td></td><td>5+/week</td><td></td></tr>
+    <tr><td>Staff Attendance Rate</td><td>%</td><td>%</td><td>&gt;95%</td><td></td></tr>
+    <tr><td>Speed of Service (avg)</td><td>min</td><td>min</td><td>&lt;5 min</td><td></td></tr>
+    <tr><td>Cash Variance (total week)</td><td>RM</td><td>RM</td><td>RM 0</td><td></td></tr>
+    <tr><td>Waste Cost</td><td>RM</td><td>RM</td><td>&lt;5% rev</td><td></td></tr>
+    <tr class="subtotal-row"><td colspan="5">Manager Notes &amp; Action Items for Next Week:</td></tr>
+    <tr><td colspan="5" style="height:60px"></td></tr>
+  </table></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- GANTT -->
+<!-- ============================================================ -->
+<div class="section" id="gantt">
+  <div class="sec-head">
+    <div class="sec-num" style="font-size:22px">📅</div>
+    <div class="sec-info">
+      <h2>Project Timeline — Gantt Chart</h2>
+      <p>39-week view from T−26 weeks (6 months before) to T+13 weeks (3 months after grand opening).</p>
+    </div>
+  </div>
+
+  <div class="gantt-legend">
+    <div class="gl"><div class="gl-dot" style="background:rgba(255,107,0,0.35)"></div> Planning / In Progress</div>
+    <div class="gl"><div class="gl-dot" style="background:var(--orange)"></div> Active / Executing</div>
+    <div class="gl"><div class="gl-dot" style="background:var(--text)"></div> Milestone</div>
+    <div class="gl"><div class="gl-dot" style="background:var(--green)"></div> Soft Opening</div>
+    <div class="gl"><div class="gl-dot" style="background:rgba(48,209,88,0.4)"></div> Post-Opening Operations</div>
+  </div>
+
+  <div class="gantt-wrap"><table>
+    <thead>
+    <tr>
+      <th class="g-label">Workstream</th>
+      <th>W−26</th><th>W−24</th><th>W−22</th><th>W−20</th><th>W−18</th><th>W−16</th><th>W−14</th><th>W−12</th>
+      <th>W−10</th><th>W−8</th><th>W−6</th><th>W−4</th><th>W−2</th><th>W0 OPEN</th>
+      <th>W+2</th><th>W+4</th><th>W+6</th><th>W+8</th><th>W+10</th><th>W+12</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td class="g-label">📋 Business Plan &amp; Concept</td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="g-label">💰 Funding &amp; Capital</td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="g-label">📍 Site Selection</td><td class="g-plan"></td><td class="g-plan"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-mile"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="g-label">📜 Licenses &amp; Legal</td><td></td><td></td><td class="g-plan"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-mile"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td></tr>
+    <tr><td class="g-label">🔨 Renovation &amp; Fit-out</td><td></td><td></td><td></td><td></td><td class="g-plan"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-mile"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="g-label">⚙️ Equipment Procurement</td><td></td><td></td><td></td><td class="g-plan"></td><td class="g-plan"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-mile"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="g-label">🏢 Supplier Agreements</td><td></td><td></td><td></td><td></td><td class="g-plan"></td><td class="g-plan"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-mile"></td><td></td><td></td><td></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td></tr>
+    <tr><td class="g-label">🍽️ Menu Development</td><td></td><td></td><td class="g-plan"></td><td class="g-plan"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-mile"></td><td></td><td></td><td></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td></td><td></td></tr>
+    <tr><td class="g-label">👤 Hiring &amp; Contracts</td><td></td><td></td><td></td><td></td><td></td><td class="g-plan"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-mile"></td><td></td><td></td><td></td><td></td><td class="g-post"></td><td class="g-post"></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="g-label">🎓 Staff Training</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="g-plan"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-mile"></td><td></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td></tr>
+    <tr><td class="g-label">📣 Branding &amp; Marketing</td><td class="g-plan"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-mile"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td></tr>
+    <tr><td class="g-label">📐 SOP &amp; System Setup</td><td></td><td></td><td></td><td></td><td class="g-plan"></td><td class="g-plan"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-mile"></td><td></td><td></td><td></td><td class="g-post"></td><td class="g-post"></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="g-label">💻 POS &amp; Technology</td><td></td><td></td><td></td><td></td><td></td><td class="g-plan"></td><td class="g-active"></td><td class="g-active"></td><td class="g-active"></td><td class="g-mile"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr style="background:rgba(48,209,88,0.05)"><td class="g-label" style="color:var(--green);font-weight:600">🌱 Soft Opening</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="g-soft"></td><td class="g-soft"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr style="background:rgba(255,107,0,0.04)"><td class="g-label" style="color:var(--orange);font-weight:700">🚀 Grand Opening</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="g-mile"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="g-label">📊 Daily Operations</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td></tr>
+    <tr><td class="g-label">📈 KPI Monitoring</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td></tr>
+    <tr><td class="g-label">💰 Financial Reporting</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td></tr>
+    <tr><td class="g-label">🚚 Delivery Platform</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td><td class="g-post"></td></tr>
+    <tr><td class="g-label">📅 90-Day Review</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="g-mile"></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box box-ok" style="margin-top:20px">
+    <strong>✅ Key Milestones</strong>
+    T−16: Site secured → T−14: Renovation begins → T−10: Equipment ordered → T−8: Hiring complete → T−6: Equipment installed → T−4: SOPs finalised → T−2: Soft opening → T−0: Grand Opening → T+13: 90-day strategic review
+  </div>
+</div>
+
+<!-- FINAL NOTE -->
+<div class="section" style="background:var(--black);border-bottom:none">
+  <div style="max-width:640px;margin:0 auto;text-align:center;padding:20px 0 10px">
+    <div style="font-size:44px;margin-bottom:20px">☕</div>
+    <h2 style="font-size:28px;font-weight:700;letter-spacing:-0.8px;color:var(--text);margin-bottom:14px">Build it with love.<br><span style="color:var(--orange)">Run it with systems.</span></h2>
+    <p style="color:var(--text2);font-size:15px;line-height:1.75;max-width:500px;margin:0 auto">
+      The most successful coffee shops are built on two things: a genuine passion for the craft and a relentless discipline in execution. This manual gives you the systems. Your story, your coffee, and your team give it the soul.
+    </p>
+    <p style="color:var(--text3);font-size:11px;margin-top:28px;letter-spacing:1.5px;text-transform:uppercase">
+      Review and update this manual quarterly as your operation evolves.
+    </p>
+  </div>
+</div>
+
+</div><!-- end .main -->
+</body>
+</html>
